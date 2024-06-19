@@ -1,12 +1,20 @@
-from datetime import datetime, time, timedelta
-from typing import Annotated, Union
+import io
+from datetime import date, datetime, time, timedelta
+from typing import Annotated, List, Union
 from uuid import UUID
 
 from fastapi import Body, FastAPI, File, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
+from interfaces import IProposal
 from pydantic import BaseModel
+from PyPDF2 import PdfReader
+from testProposals import proposals
 
 app = FastAPI()
+
+origins = [
+    "http://localhost",
+]
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,33 +23,47 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+    
 
-
-class Item(BaseModel):
-    name: str
-    price: float
-    is_offer: Union[bool, None] = None
-    start_datetime: Annotated[datetime, Body()]
-
-
-@app.get("/", status_code= status.HTTP_201_CREATED)
-def read_root():
+@app.get("/status", status_code= status.HTTP_201_CREATED)
+def health():
     return {"Hello": "World"}
 
 
-@app.get("/proposals")
+@app.get("/proposals", response_model=List[IProposal])
+def get_proposals():
+    return proposals
+
+# @app.get("/proposals/{proposalId}")
+# def get_glossaryById(proposalId: str):
+#     return {'Proposal: ' + proposalId}
+
+# @app.get("/proposals/{glossaryId}")
+# def get_proposalsByGlossaryId(proposalId: str):
+#     return {'Proposals'}
 
 
 @app.get("/glossaries")
+def get_glossaries():
+    return {'Glossaries'}
 
-@app.post("/uploadfile")
-async def create_upload_file(file: Union[UploadFile, None] = None):
-    reader = PdfReader(file)
+@app.get("/glossaries/{glossaryId}")
+def get_glossaryById(glossaryId: str):
+    return {'Glossary: ' + glossaryId}
+
+
+
+@app.post("/upload")
+async def uploadProposal(file: Union[UploadFile, None] = File(None)):
+    if not file:
+        return {"message": "No upload file sent"}
+
+    contents = await file.read()
+
+    reader = PdfReader(io.BytesIO(contents))
     number_of_pages = len(reader.pages)
     page = reader.pages[0]
     text = page.extract_text()
     print(text)
-    if not file:
-        return {"message": "No upload file sent"}
-    else:
-        return {"filename": file.filename}
+
+    return {"filename": file.filename, "extracted_text": text}
