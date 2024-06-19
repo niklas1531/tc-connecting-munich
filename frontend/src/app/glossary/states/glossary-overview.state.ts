@@ -3,12 +3,13 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { filter, Observable, take, tap } from 'rxjs';
 import { IGlossary } from '../../proposal/interfaces/glossary';
 import { GlossaryService } from '../services/proposal.service';
-import { getGlossaries } from './../../proposal/states/proposal-overview.actions';
+import { getGlossaries } from './glossary-overview.actions';
 
 export interface GlossaryStateModel {
   isLoading: boolean;
   hasError: boolean;
   glossaries: IGlossary[];
+  filteredGlossaries: IGlossary[];
 }
 
 @State<GlossaryStateModel>({
@@ -17,6 +18,7 @@ export interface GlossaryStateModel {
     isLoading: false,
     hasError: false,
     glossaries: [],
+    filteredGlossaries: [],
   },
 })
 @Injectable()
@@ -37,6 +39,10 @@ export class ProposalState {
   static glossaries(state: GlossaryStateModel): IGlossary[] {
     return state.glossaries;
   }
+  @Selector()
+  static filteredGlossaries(state: GlossaryStateModel): IGlossary[] {
+    return state.filteredGlossaries;
+  }
 
   @Action(getGlossaries)
   getGlossaries(
@@ -45,7 +51,9 @@ export class ProposalState {
     return this.glossaryService.getGlossaries().pipe(
       take(1),
       filter((response) => !!response),
-      tap((glossaries) => context.patchState({ glossaries }))
+      tap((glossaries) =>
+        context.patchState({ glossaries, filteredGlossaries: glossaries })
+      )
     );
   }
 }

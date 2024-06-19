@@ -1,3 +1,9 @@
 .example-chip-list {
     width: 100%;
   }
+
+.key-information {
+  &__title {
+    width: 50%;
+  }
+}

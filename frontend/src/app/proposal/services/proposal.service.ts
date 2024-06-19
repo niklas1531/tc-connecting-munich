@@ -18,8 +18,8 @@ export class ProposalService {
     return this.http.get<IProposal>(environment.apiUrl + `/proposals/${id}`);
   }
 
-  public uploadProposalFile(file: FormData): Observable<any> {
+  public uploadProposalFile(file: FormData): Observable<IProposal> {
     console.log(file);
-    return this.http.post(environment.apiUrl + '/upload', file);
+    return this.http.post<IProposal>(environment.apiUrl + '/upload', file);
   }
 }

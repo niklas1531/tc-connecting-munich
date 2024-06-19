@@ -1,13 +1,32 @@
 <div mat-dialog-content class="mat-dialog-content">
-    <div class="dialog__header">
+    <header class="dialog__header">
         <div class="dialog__header__arrow-back"><button class="dialog__header__btn"><i class="bi bi-arrow-left-short dialog__header__btn__icon"></i></button></div>
-        <div class="dialog__header__steps"></div>
+        <div class="dialog__header__steps">
+            <!-- TODO Add step icons and functionality -->
+        </div>
         <div class="dialog__header__close-btn">
             <button class="dialog__header__btn" (click)="closeDialog()"><i class="bi bi-x dialog__header__btn__icon"></i></button>
         </div>
-    </div>
+    </header>
     <div class="dialog__content">
+       @if(selectedFile$ | async; as selectedFile) {
+        <!-- TODO create FormGroups to save and display values -->
+        <!-- TODO Step 1: -->
+        <div>
+            <i class="bi bi-file-earmark-pdf-fill"></i>
+            {{ selectedFile.get('file').name }}
+            <button (click)=deleteInCreationProposal()><i class="bi bi-x"></i></button>
+            </div>
+        <app-proposal-create-key-information></app-proposal-create-key-information>
+        <!-- TODO Step 2: -->
+        <app-proposal-create-dates></app-proposal-create-dates>
+        <app-proposal-create-selects></app-proposal-create-selects>
+        <!-- TODO Step 3: -->
+        <app-proposal-create-contacts></app-proposal-create-contacts>
+        <!-- TODO add button for contacts to also add more input fields -->
+         <!-- TODO Create Summary Page -->
+       } @else {
         <app-proposal-create-file-input></app-proposal-create-file-input>
-         <!-- <app-proposal-create-key-information></app-proposal-create-key-information> -->
+       }
     </div>
 </div>

@@ -3,11 +3,16 @@ $header-height: 50px;
     height: 100%;
 }
 .dialog {
+    position: relative;
     &__header {
         height: $header-height;
         background-color: #ffffff;
         display: flex;
         justify-content: space-between;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
         &__btn {
             background-color: transparent;
             &:hover {
@@ -25,9 +30,11 @@ $header-height: 50px;
     &__content {
         background-color: var(--dialogBackground);
         height: calc(100% - $header-height);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        padding: 20px;
+        margin-top: $header-height;
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
     }
 }
 

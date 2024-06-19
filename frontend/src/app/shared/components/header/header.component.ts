@@ -14,8 +14,8 @@ export class HeaderComponent {
   readonly dialog = inject(MatDialog);
   public openCreateDialog() {
     const dialogRef = this.dialog.open(CreateDialogComponent, {
-      height: '600px',
-      width: '1000px',
+      height: '800px',
+      width: '1200px',
     });
 
     dialogRef.afterClosed().pipe().subscribe();
