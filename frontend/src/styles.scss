@@ -54,3 +54,7 @@ a {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mdc-dialog .mdc-dialog__content {
+  padding: 0 !important;
+}

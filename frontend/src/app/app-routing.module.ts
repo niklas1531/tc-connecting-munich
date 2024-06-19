@@ -1,4 +1,5 @@
-import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { SearchComponent } from './search/search.component';
 
 export const routes: Routes = [
@@ -27,3 +28,9 @@ export const routes: Routes = [
       import('./proposal/proposal.module').then((m) => m.ProposalModule),
   },
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}

@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CreateDialogComponent } from '../../../proposal/dialogs/create-dialog/create-dialog.component';
+import { SharedModule } from '../../shared.module';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
+  imports: [SharedModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

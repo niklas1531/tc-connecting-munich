@@ -1,1 +1,9 @@
-<app-frame title="Anträge"></app-frame>
+<app-frame title="Anträge">
+  @if(proposals$ | async; as proposals) {
+  <div class="proposals__content">
+    @for(proposal of proposals; track proposal) {
+    <div>{{ proposal.title }}</div>
+    }
+  </div>
+  }
+</app-frame>

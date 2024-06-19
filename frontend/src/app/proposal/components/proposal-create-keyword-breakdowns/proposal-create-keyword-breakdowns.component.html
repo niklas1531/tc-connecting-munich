@@ -1,0 +1,25 @@
+<form>
+    <mat-form-field class="example-chip-list" appearance="outline">
+      <mat-label>Schlüsselbegriffe</mat-label>
+      <mat-chip-grid #chipGrid aria-label="Schlüsselbegriff Auswahl">
+        @for (glossary of glossaries; track glossary) {
+          <mat-chip-row (removed)="remove(glossary)">
+            {{glossary}}
+            <button matChipRemove [attr.aria-label]="'remove ' + glossary">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        }
+      </mat-chip-grid>
+      <input placeholder="Schlüsselbegriff hinzufügen..." #glossaryInput [formControl]="glossaryCtrl"
+        [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)"/>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        @for (glossary of filteredGlossaries | async; track glossary) {
+          <mat-option [value]="glossary">{{glossary}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  

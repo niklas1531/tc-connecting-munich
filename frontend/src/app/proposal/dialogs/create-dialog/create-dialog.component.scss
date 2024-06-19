@@ -1,4 +1,7 @@
 $header-height: 50px;
+.mat-dialog-content {
+    height: 100%;
+}
 .dialog {
     &__header {
         height: $header-height;
@@ -22,7 +25,9 @@ $header-height: 50px;
     &__content {
         background-color: var(--dialogBackground);
         height: calc(100% - $header-height);
-
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
