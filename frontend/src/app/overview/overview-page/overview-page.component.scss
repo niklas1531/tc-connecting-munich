@@ -1,0 +1,24 @@
+
+.page {
+    height: 100%;
+    max-height: 100%;
+    &__content {
+        margin-top:20px;
+        display: flex;
+        justify-content: center;
+        &__intro {
+            margin-top: 80px;
+            width: 800px;
+            text-align: center;
+
+            a {
+                background-color: var(--darkBlue);
+                color: #ffffff;
+                &:hover {
+                    background-color: var(--lightBlue);
+                }
+            }
+        }
+    }
+   
+}

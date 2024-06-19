@@ -1,0 +1,38 @@
+.glossary-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media(max-width: 1300px) {
+        display: grid;
+        row-gap: 16px;
+        grid-template-columns: repeat(13, 1fr);
+    }
+
+    &__item {
+        width: 40px;
+        height: 40px;
+        text-transform: uppercase;
+        user-select: none;
+        border-radius: 50%;
+        background-color: transparent;
+        transition: 
+            opacity 125ms,
+            background-color 125ms;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:not(&--active, &:disabled):hover {
+            background-color: var(--darkBlue);
+            color: #ffffff;
+            opacity: 75%;
+        }
+
+        &--active {
+            background-color: var(--darkBlue);
+            color: #ffffff;
+        }
+
+    }
+}

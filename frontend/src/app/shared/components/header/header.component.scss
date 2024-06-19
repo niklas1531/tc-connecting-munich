@@ -1,0 +1,50 @@
+$header-height: 70px;
+.header {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  position: fixed;
+  top: 0;
+  height: $header-height;
+  width: 90%;
+  margin: 20px 5%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 7px;
+  align-items: center;
+  &__logo {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+    &__img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  &__navigation {
+    display: flex;
+    gap: 35px;
+    justify-content: center;
+    font-weight: 700;
+    &__item {
+      text-decoration: none;
+      color: #000000;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  &__createProposal {
+    display: flex;
+    justify-content: end;
+    &__btn {
+      color: #ffffff;
+      background-color: var(--lightBlue);
+      &:hover {
+        background-color: var(--darkBlue);
+      }
+    }
+  }
+}
