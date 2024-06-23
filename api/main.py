@@ -1,8 +1,10 @@
 import io
+import json
 from datetime import date, datetime, time, timedelta
 from typing import Annotated, List, Union
 from uuid import UUID
 
+from claudeService import generateSummary
 from fastapi import Body, FastAPI, File, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
 from interfaces import IProposal
@@ -61,9 +63,16 @@ async def uploadProposal(file: Union[UploadFile, None] = File(None)):
     contents = await file.read()
 
     reader = PdfReader(io.BytesIO(contents))
-    number_of_pages = len(reader.pages)
     page = reader.pages[0]
     text = page.extract_text()
-    print(text)
-
-    return {"filename": file.filename, "extracted_text": text}
+    response_str = generateSummary(text)
+    print(response_str)
+    print(response_str[0].text)
+    response = response_str[0].text
+    
+    data = json.loads(response)
+    title = data["title"] or ''
+    summary = data["summary"] or ''
+    glossaries = data["glossaries"] or []
+    contacts = data["contacts"] or []
+    return {'title': title, 'summary':summary, 'glossaries':glossaries, 'contacts':contacts}
