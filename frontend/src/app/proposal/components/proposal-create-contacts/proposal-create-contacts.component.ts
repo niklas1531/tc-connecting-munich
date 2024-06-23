@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { InputFieldComponent } from '../../../shared/components/input-field/input-field.component';
 
 @Component({
@@ -8,4 +8,6 @@ import { InputFieldComponent } from '../../../shared/components/input-field/inpu
   styleUrl: './proposal-create-contacts.component.scss',
   imports: [InputFieldComponent],
 })
-export class ProposalCreateContactsComponent {}
+export class ProposalCreateContactsComponent {
+  @Input() contactsFormGroup;
+}

@@ -1,9 +1,13 @@
-<div class="key-information">
+<form class="key-information" [formGroup]="contentFormGroup">
   <div class="key-information__title">
-    <app-input-field label="Titel"></app-input-field>
+    <mat-form-field appearance="outline" >
+      <mat-label>Titel</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
   </div>
-  <app-textarea label="Zusammenfassung"></app-textarea>
-  <app-proposal-create-keyword-breakdowns></app-proposal-create-keyword-breakdowns>
-  <div class="key-information__contacts">
-  </div>
-</div>
+  <mat-form-field appearance="outline">
+    <mat-label>Zusammenfassung</mat-label>
+    <textarea matInput formControlName="summary"></textarea>
+  </mat-form-field>
+  <app-proposal-create-keyword-breakdowns [contentFormGroup]="contentFormGroup"></app-proposal-create-keyword-breakdowns>
+</form>

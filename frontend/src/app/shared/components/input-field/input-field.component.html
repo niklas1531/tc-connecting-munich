@@ -1,10 +1,23 @@
-<mat-form-field appearance="outline">
-    <mat-label>{{label}}</mat-label>
-    <input matInput>
-   @if(!!icon) {
-    <mat-icon matSuffix>{{icon}}</mat-icon>
-   }
-    @if(!!hint) {
-        <mat-hint>{{hint}}</mat-hint>
-    }
-  </mat-form-field>
+@if(formControlName && formGroup) {
+    <mat-form-field appearance="outline" >
+        <mat-label>{{label}}</mat-label>
+        <input matInput [formControl]="formGroup.get(formControlName)">
+       @if(!!icon) {
+        <mat-icon matSuffix>{{icon}}</mat-icon>
+       }
+        @if(!!hint) {
+            <mat-hint>{{hint}}</mat-hint>
+        }
+      </mat-form-field>
+} @else {
+    <mat-form-field appearance="outline">
+        <mat-label>{{label}}</mat-label>
+        <input matInput>
+       @if(!!icon) {
+        <mat-icon matSuffix>{{icon}}</mat-icon>
+       }
+        @if(!!hint) {
+            <mat-hint>{{hint}}</mat-hint>
+        }
+      </mat-form-field>
+}

@@ -1,51 +1,44 @@
 <div class="selects">
-<div>
-  <p>Wahlperiode</p>
-  <mat-form-field appearance="outline">
-    <mat-label>Wahlperiode</mat-label>
-    <mat-select [(ngModel)]="selectedWahlperiode" name="Wahlperiode">
-      @for (wahlperiode of wahlperioden; track wahlperiode) {
-      <mat-option [value]="wahlperiode">{{ wahlperiode }}</mat-option>
-      }
-    </mat-select></mat-form-field
-  >
-</div>
+  <div class="selects__item">
+    <mat-form-field appearance="outline">
+      <mat-select [(ngModel)]="selectedWahlperiode" name="Wahlperiode">
+        @for (wahlperiode of wahlperioden; track wahlperiode) {
+        <mat-option [value]="wahlperiode">{{ wahlperiode }}</mat-option>
+        }
+      </mat-select></mat-form-field
+    >
+  </div>
 
-<div>
-  <p>Gestellt von</p>
-<mat-form-field appearance="outline">
-  <mat-label>Gestellt von</mat-label>
-  <mat-select [(ngModel)]="selectedCreatedBy" name="GestelltVon">
-    @for (createdBy of createdByOptions; track createdBy) {
-    <mat-option [value]="createdBy">{{ createdBy }}</mat-option>
-    }
-  </mat-select></mat-form-field
->
-</div>
+  <div class="selects__item">
+    <mat-form-field appearance="outline">
+      <mat-label>Gestellt von</mat-label>
+      <mat-select [(ngModel)]="selectedCreatedBy" name="GestelltVon">
+        @for (createdBy of createdByOptions; track createdBy) {
+        <mat-option [value]="createdBy">{{ createdBy }}</mat-option>
+        }
+      </mat-select></mat-form-field
+    >
+  </div>
 
-<div>
-  <p>Zugänglichkeit</p>
-<mat-form-field appearance="outline">
-  <mat-label>Art</mat-label>
-  <mat-select [(ngModel)]="selectedAccessibility" name="accessibility">
-    @for (accessibility of accessibilities; track accessibility) {
-    <mat-option [value]="accessibility">{{ accessibility }}</mat-option>
-    }
-  </mat-select></mat-form-field
->
-</div>
+  <div class="selects__item">
+    <mat-form-field appearance="outline">
+      <mat-label>Art</mat-label>
+      <mat-select [(ngModel)]="selectedAccessibility" name="accessibility">
+        @for (accessibility of accessibilities; track accessibility) {
+        <mat-option [value]="accessibility">{{ accessibility }}</mat-option>
+        }
+      </mat-select></mat-form-field
+    >
+  </div>
 
-<div>
-  <p>Typ</p>
-<mat-form-field appearance="outline">
-  <mat-label>Typ</mat-label>
-  <mat-select [(ngModel)]="selectedType" name="type">
-    @for (type of types; track type) {
-    <mat-option [value]="type">{{ type }}</mat-option>
-    }
-  </mat-select></mat-form-field
->
-</div>
-
-
+  <div class="selects__item">
+    <mat-form-field appearance="outline">
+      <mat-label>Typ</mat-label>
+      <mat-select [(ngModel)]="selectedType" name="type">
+        @for (type of types; track type) {
+        <mat-option [value]="type">{{ type }}</mat-option>
+        }
+      </mat-select></mat-form-field
+    >
+  </div>
 </div>

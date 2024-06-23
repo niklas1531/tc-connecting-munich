@@ -1,7 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { AsyncPipe } from '@angular/common';
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule,
@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { ContentFormGroup } from '../proposal-create.types';
 @Component({
   selector: 'app-proposal-create-keyword-breakdowns',
   standalone: true,
@@ -41,6 +42,7 @@ export class ProposalCreateKeywordBreakdownsComponent {
   ];
 
   @ViewChild('glossaryInput') glossaryInput: ElementRef<HTMLInputElement>;
+  @Input() contentFormGroup: ContentFormGroup;
 
   announcer = inject(LiveAnnouncer);
 

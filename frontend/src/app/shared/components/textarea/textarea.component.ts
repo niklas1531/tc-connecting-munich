@@ -14,4 +14,6 @@ export class TextareaComponent {
   @Input() label: string;
   @Input() icon?: string;
   @Input() hint?: string;
+  @Input() formControlName;
+  @Input() formGroup;
 }

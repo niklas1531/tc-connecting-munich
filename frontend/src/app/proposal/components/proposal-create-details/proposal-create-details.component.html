@@ -1,0 +1,75 @@
+<form [formGroup]="detailsFormGroup">
+  <div class="dates">
+    <div class="dates__item">
+      <mat-form-field appearance="outline">
+          <mat-label>Gestellt am</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="createdAt">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="dates__item">
+      <mat-form-field appearance="outline">
+          <mat-label>Registriert am</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="registeredAt">
+          <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="dates__item">
+      <mat-form-field appearance="outline">
+          <mat-label>Bearbeitungsfrist</mat-label>
+          <input matInput [matDatepicker]="picker3" formControlName="processingDeadline">
+          <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+    </div>
+  </div>
+  <div class="selects">
+    <div class="selects__item">
+      <mat-form-field appearance="outline">
+        <mat-label>Wahlperiode</mat-label>
+        <mat-select formControlName="electionPeriod" name="Wahlperiode">
+          @for (wahlperiode of wahlperioden; track wahlperiode) {
+          <mat-option [value]="wahlperiode">{{ wahlperiode }}</mat-option>
+          }
+        </mat-select></mat-form-field
+      >
+    </div>
+  
+    <div class="selects__item">
+      <mat-form-field appearance="outline">
+        <mat-label>Gestellt von</mat-label>
+        <mat-select formControlName="createdBy" name="GestelltVon">
+          @for (createdBy of createdByOptions; track createdBy) {
+          <mat-option [value]="createdBy">{{ createdBy }}</mat-option>
+          }
+        </mat-select></mat-form-field
+      >
+    </div>
+  
+    <div class="selects__item">
+      <mat-form-field appearance="outline">
+        <mat-label>Art</mat-label>
+        <mat-select formControlName="art" name="accessibility">
+          @for (accessibility of accessibilities; track accessibility) {
+          <mat-option [value]="accessibility">{{ accessibility }}</mat-option>
+          }
+        </mat-select></mat-form-field
+      >
+    </div>
+  
+    <div class="selects__item">
+      <mat-form-field appearance="outline">
+        <mat-label>Typ</mat-label>
+        <mat-select formControlName="type" name="type">
+          @for (type of types; track type) {
+          <mat-option [value]="type">{{ type }}</mat-option>
+          }
+        </mat-select></mat-form-field
+      >
+    </div>
+  </div>
+  
+  
+</form>

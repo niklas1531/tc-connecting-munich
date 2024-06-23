@@ -1,32 +1,73 @@
 <div mat-dialog-content class="mat-dialog-content">
-    <header class="dialog__header">
-        <div class="dialog__header__arrow-back"><button class="dialog__header__btn"><i class="bi bi-arrow-left-short dialog__header__btn__icon"></i></button></div>
-        <div class="dialog__header__steps">
-            <!-- TODO Add step icons and functionality -->
-        </div>
-        <div class="dialog__header__close-btn">
-            <button class="dialog__header__btn" (click)="closeDialog()"><i class="bi bi-x dialog__header__btn__icon"></i></button>
-        </div>
-    </header>
-    <div class="dialog__content">
-       @if(selectedFile$ | async; as selectedFile) {
-        <!-- TODO create FormGroups to save and display values -->
-        <!-- TODO Step 1: -->
-        <div>
-            <i class="bi bi-file-earmark-pdf-fill"></i>
-            {{ selectedFile.get('file').name }}
-            <button (click)=deleteInCreationProposal()><i class="bi bi-x"></i></button>
-            </div>
-        <app-proposal-create-key-information></app-proposal-create-key-information>
-        <!-- TODO Step 2: -->
-        <app-proposal-create-dates></app-proposal-create-dates>
-        <app-proposal-create-selects></app-proposal-create-selects>
-        <!-- TODO Step 3: -->
-        <app-proposal-create-contacts></app-proposal-create-contacts>
-        <!-- TODO add button for contacts to also add more input fields -->
-         <!-- TODO Create Summary Page -->
-       } @else {
-        <app-proposal-create-file-input></app-proposal-create-file-input>
-       }
+  <header class="dialog__header">
+    <div class="dialog__header__arrow-back">
+      <button
+        class="dialog__header__btn"
+        (click)="previousStep()"
+        [disabled]="selected === 0"
+      >
+        <i class="bi bi-arrow-left-short dialog__header__btn__icon"></i>
+      </button>
     </div>
+    <div class="dialog__header__close-btn">
+      <button class="dialog__header__btn" (click)="closeDialog()">
+        <i class="bi bi-x dialog__header__btn__icon"></i>
+      </button>
+    </div>
+  </header>
+  <div class="dialog__content">
+    <h2>Antrags-Generator</h2>
+    <p>Erstellen Sie einen neuen Antrag</p>
+    <div class="dialog__content__steps">
+      <app-proposal-create-steps
+        (moveToStep)="goToStep($event)"
+        [selected]="selected"
+      ></app-proposal-create-steps>
+    </div>
+    <div class="dialog__content__container">
+      <h3>{{ steps[selected].title }}</h3>
+
+      @switch (selected) { @case (0) { @if(selectedFile$ | async; as
+      selectedFile) {
+      <div>
+        <i class="bi bi-file-earmark-pdf-fill"></i>
+        {{ selectedFile.get("file").name }}
+        <button (click)="deleteInCreationProposal()" class="transparent-btn">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+      } @else {
+      <div class="dialog__content__file-upload">
+        <app-proposal-create-file-input [fileFormGroup]="fileForm" [contentFormGroup]="contentForm" [detailsFormGroup]="detailsForm" [contactsFormGroup]="contactsForm"></app-proposal-create-file-input>
+      </div>
+      } } @case (1) {
+      <app-proposal-create-key-information [contentFormGroup]="contentForm"></app-proposal-create-key-information>
+      } @case (2) {
+      <app-proposal-create-details [detailsFormGroup]="detailsForm"></app-proposal-create-details>
+      } @case (3) {
+      <!-- TODO add button for contacts to also add more input fields -->
+      <app-proposal-create-contacts [contactsFormGroup]="contactsForm"></app-proposal-create-contacts>
+      } @case (4) {
+      <app-proposal-create-summary></app-proposal-create-summary>
+      } @default {
+      <p>No step found</p>
+      } } @if(selected < 4) {
+      <button
+        (click)="nextStep(true)"
+        class="dialog__content__container dialog__content__container__button"
+        [disabled]="steps[selected]?.form?.invalid"
+      >
+        Weiter
+      </button>
+      } @else {
+      <button
+        (click)="createProposal()"
+        class="dialog__content__container dialog__content__container__button"
+        [disabled]="steps[selected]?.form?.invalid"
+      >
+        Antrag Erstellen
+      </button>
+      }
+    </div>
+  </div>
 </div>

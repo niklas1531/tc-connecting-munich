@@ -1,0 +1,24 @@
+<div class="stepper">
+  <div class="stepper__circle stepper__circle__1" (click)="toStep(0)" [class.stepper__circle--active]="selected >= 0">
+    <span><i class="bi bi-upload"></i></span>
+  </div>
+  <div class="stepper__line" [class.stepper__line--active]="selected >= 0"></div>
+
+  <div class="stepper__circle stepper__circle__2" (click)="toStep(1)" [class.stepper__circle--active]="selected >= 1">
+    <span><i class="bi bi-body-text"></i></span>
+  </div>
+  <div class="stepper__line" [class.stepper__line--active]="selected >= 1"></div>
+
+  <div class="stepper__circle stepper__circle__3" (click)="toStep(2)" [class.stepper__circle--active]="selected >= 2">
+    <span><i class="bi bi-calendar-event"></i></span>
+  </div>
+  <div class="stepper__line" [class.stepper__line--active]="selected >= 2"></div>
+
+  <div class="stepper__circle stepper__circle__4" (click)="toStep(3)" [class.stepper__circle--active]="selected >= 3">
+    <span><i class="bi bi-people-fill"></i></span>
+  </div>
+  <div class="stepper__line" [class.stepper__line--active]="selected >= 3"></div>
+  <div class="stepper__circle stepper__circle__5" (click)="toStep(4)" [class.stepper__circle--active]="selected >= 4">
+    <span><i class="bi bi-check2"></i></span>
+  </div>
+</div>
