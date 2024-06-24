@@ -9,8 +9,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ProposalCreateStepsComponent {
   @Output() moveToStep: EventEmitter<number> = new EventEmitter<number>();
   @Input() selected: number;
+  @Input() fileForm;
+  @Input() contentForm;
+  @Input() detailsForm;
+  @Input() contactsForm;
 
   public toStep(step: number): void {
     this.moveToStep.next(step);
   }
 }
+

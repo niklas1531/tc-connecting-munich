@@ -1,7 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { provideNativeDateAdapter } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  DateAdapter,
+  MAT_DATE_LOCALE,
+  provideNativeDateAdapter,
+} from '@angular/material/core';
+import {
+  MatDatepickerIntl,
+  MatDatepickerModule,
+} from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -27,7 +34,7 @@ import { DetailsFormGroup } from '../proposal-create.types';
   ],
   providers: [provideNativeDateAdapter()],
 })
-export class ProposalCreateDetailsComponent {
+export class ProposalCreateDetailsComponent implements OnInit {
   @Input() detailsFormGroup: DetailsFormGroup;
 
   wahlperioden = ['1', '2', '3'];
@@ -41,4 +48,14 @@ export class ProposalCreateDetailsComponent {
 
   types = Object.values(ProposalType);
   selectedType = ProposalType.BA_ANTRAG;
+
+  constructor(
+    private _adapter: DateAdapter<any>,
+    private _intl: MatDatepickerIntl,
+    @Inject(MAT_DATE_LOCALE) private _locale: string
+  ) {}
+  ngOnInit(): void {
+    this._locale = 'de';
+    this._adapter.setLocale(this._locale);
+  }
 }

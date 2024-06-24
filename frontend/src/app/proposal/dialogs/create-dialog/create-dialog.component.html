@@ -22,6 +22,7 @@
       <app-proposal-create-steps
         (moveToStep)="goToStep($event)"
         [selected]="selected"
+        [fileForm]="fileForm" [contentForm]="contentForm" [detailsForm]="detailsForm" [contactsForm]="contactsForm"
       ></app-proposal-create-steps>
     </div>
     <div class="dialog__content__container">
@@ -48,7 +49,7 @@
       <!-- TODO add button for contacts to also add more input fields -->
       <app-proposal-create-contacts [contactsFormGroup]="contactsForm"></app-proposal-create-contacts>
       } @case (4) {
-      <app-proposal-create-summary></app-proposal-create-summary>
+      <app-proposal-create-summary [fileForm]="fileForm" [contentForm]="contentForm" [detailsForm]="detailsForm" [contactsForm]="contactsForm" (moveToStep)="goToStep($event)"></app-proposal-create-summary>
       } @default {
       <p>No step found</p>
       } } @if(selected < 4) {
@@ -63,7 +64,7 @@
       <button
         (click)="createProposal()"
         class="dialog__content__container dialog__content__container__button"
-        [disabled]="steps[selected]?.form?.invalid"
+        [disabled]="fileForm.invalid || contentForm.invalid || detailsForm.invalid || contactsForm.invalid"
       >
         Antrag Erstellen
       </button>

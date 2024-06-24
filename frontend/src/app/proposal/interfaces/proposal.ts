@@ -4,15 +4,15 @@ import { ProposalAccessibilty } from './proposal-accessibilty';
 import { ProposalType } from './proposal-type';
 
 export interface IProposal {
-  id: number;
+  id?: number;
   title: string;
   summary: string;
   glossaries: IGlossary[];
-  responsible: IPerson;
+  responsibles: IPerson[];
   contacts: IPerson[];
-  createdAt: Date;
-  registeredAt: Date;
-  deadline: Date;
+  createdAt: string;
+  registeredAt: string;
+  deadline: string;
   electionPeriod: string;
   createdBy: string;
   type: ProposalType;

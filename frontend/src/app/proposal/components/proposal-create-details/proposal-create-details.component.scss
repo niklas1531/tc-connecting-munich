@@ -1,17 +1,26 @@
-.dates {
-    display: flex;
-    justify-content: space-between;
-    &__item {
-    display: flex;
-    flex-direction: column;
-    }
-}
-
-.selects {
-    display: flex;
-    justify-content: space-between;
-    &__item {
+.details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    .dates {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
+        padding: 0 20px 0 0;
+        &__item {
+        display: flex;
+        flex-direction: column;
+        }
+    }
+    
+    .selects {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0 20px;
+
+        &__item {
+            display: flex;
+            flex-direction: column;
+        }
     }
 }

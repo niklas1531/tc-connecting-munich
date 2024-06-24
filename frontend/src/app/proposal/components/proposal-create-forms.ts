@@ -1,12 +1,12 @@
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 export const fileFormGroup = new FormGroup({
-  file: new FormControl('', Validators.required),
+  file: new FormControl(undefined, Validators.required),
 });
 export const contentFormGroup = new FormGroup({
   title: new FormControl('', Validators.required),
   summary: new FormControl('', Validators.required),
-  glossaries: new FormArray([], Validators.required),
+  glossaries: new FormControl([], Validators.required),
 });
 
 export const detailsFormGroup = new FormGroup({
@@ -15,12 +15,12 @@ export const detailsFormGroup = new FormGroup({
   processingDeadline: new FormControl('', Validators.required),
   processingTime: new FormControl('', Validators.required),
   createdBy: new FormControl('', Validators.required),
-  art: new FormControl('', Validators.required),
-  type: new FormControl('', Validators.required),
+  art: new FormControl(undefined, Validators.required),
+  type: new FormControl(undefined, Validators.required),
   electionPeriod: new FormControl('', Validators.required),
 });
 
 export const contactsFormGroup = new FormGroup({
-  responsible: new FormControl(undefined, Validators.required),
-  contacts: new FormControl(),
+  responsibles: new FormArray([], Validators.required),
+  contacts: new FormArray([]),
 });

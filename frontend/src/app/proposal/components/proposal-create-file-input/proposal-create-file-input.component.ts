@@ -30,9 +30,20 @@ export class ProposalCreateFileInputComponent {
       const file = input.files[0];
       const formData: FormData = new FormData();
       formData.append('file', file, file.name);
+      console.log(formData);
       this.store
-        .dispatch(new uploadProposalFile({ file: formData }))
-        .pipe(tap(() => this.setFormGroupValues()))
+        .dispatch(new uploadProposalFile({ file: formData, fileF: file }))
+        .pipe(
+          tap(
+            () => (
+              this.setFormGroupValues(),
+              ProposalCreateOperations.patchFileFormGroup(
+                file,
+                this.fileFormGroup
+              )
+            )
+          )
+        )
         .subscribe();
     }
   }
@@ -41,13 +52,15 @@ export class ProposalCreateFileInputComponent {
     this.inCreationProposal$
       .pipe(
         filter((file) => !!file),
-        tap((file) =>
+        tap((file) => {
+          console.log(file);
           ProposalCreateOperations.patchContentFormGroup(
             file,
             this.contentFormGroup
-          )
-        ),
-        tap((file) =>
+          );
+          console.log(this.contentFormGroup);
+        }),
+        tap(() =>
           ProposalCreateOperations.patchDetailsFormGroup(this.detailsFormGroup)
         )
       )

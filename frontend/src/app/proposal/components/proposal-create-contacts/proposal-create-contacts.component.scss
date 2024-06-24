@@ -1,0 +1,30 @@
+.contacts {
+    display: flex;
+    flex-direction: column;
+    .container {
+        display: flex;
+        flex-direction: column;
+        padding: 0 20px 0 0;
+        button {
+            width: fit-content;
+            background-color: var(--darkBlue);
+            color: #ffffff;
+            cursor: pointer;
+            height: 56px;
+            &.remove-btn {
+                background-color: transparent;
+                border: none;
+                padding: 0;
+                color: #000000;
+            }
+        }
+        .input {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            &.results {
+            align-items: center;    
+            }
+        }
+    }
+}

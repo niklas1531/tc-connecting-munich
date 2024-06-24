@@ -1,4 +1,4 @@
-<form [formGroup]="detailsFormGroup">
+<form [formGroup]="detailsFormGroup" class="details">
   <div class="dates">
     <div class="dates__item">
       <mat-form-field appearance="outline">
@@ -6,6 +6,7 @@
           <input matInput [matDatepicker]="picker" formControlName="createdAt">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+          <mat-hint>D.M.YYYY</mat-hint>
         </mat-form-field>
     </div>
     <div class="dates__item">
@@ -14,6 +15,7 @@
           <input matInput [matDatepicker]="picker2" formControlName="registeredAt">
           <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
+          <mat-hint>D.M.YYYY</mat-hint>
         </mat-form-field>
     </div>
     <div class="dates__item">
@@ -22,6 +24,7 @@
           <input matInput [matDatepicker]="picker3" formControlName="processingDeadline">
           <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
           <mat-datepicker #picker3></mat-datepicker>
+          <mat-hint>D.M.YYYY</mat-hint>
         </mat-form-field>
     </div>
   </div>

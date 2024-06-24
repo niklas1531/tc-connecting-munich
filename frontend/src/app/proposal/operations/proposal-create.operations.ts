@@ -18,6 +18,12 @@ export class ProposalCreateOperations {
     });
   }
 
+  public static patchFileFormGroup(file: File, fileForm) {
+    fileForm.patchValue({
+      file,
+    });
+  }
+
   public static patchDetailsFormGroup(detailsForm: DetailsFormGroup): void {
     const currentDate = new Date();
     let deadlineDate = new Date();

@@ -1,3 +1,44 @@
 <div class="summary">
-    
+  <div class="header">
+    <h4>Upload</h4>
+    <button (click)="toStep(0)"><i class="bi bi-pencil-square"></i></button>
+  </div>
+  @if(selectedFile$ | async; as
+  selectedFile) {
+  <div>
+    <i class="bi bi-file-earmark-pdf-fill"></i>
+    {{ selectedFile.get("file").name }}
+  </div>
+  }
+
+  <hr />
+
+  <div class="header">
+    <h4>Inhalt</h4>
+    <button (click)="toStep(1)"><i class="bi bi-pencil-square"></i></button>
+  </div>
+  <app-proposal-create-key-information
+    [contentFormGroup]="contentForm"
+  ></app-proposal-create-key-information>
+
+  <hr />
+
+  <div class="header">
+    <h4>Details</h4>
+    <button (click)="toStep(2)"><i class="bi bi-pencil-square"></i></button>
+  </div>
+  <app-proposal-create-details
+    [detailsFormGroup]="detailsForm"
+  ></app-proposal-create-details>
+
+  <hr />
+
+  <div class="header">
+    <h4>Personen</h4>
+    <button (click)="toStep(3)"><i class="bi bi-pencil-square"></i></button>
+  </div>
+  <app-proposal-create-contacts
+    [contactsFormGroup]="contactsForm"
+    [editView]="false"
+  ></app-proposal-create-contacts>
 </div>

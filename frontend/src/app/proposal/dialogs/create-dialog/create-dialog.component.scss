@@ -35,7 +35,6 @@ $header-height: 50px;
     }
     &__content {
         background-color: var(--dialogBackground);
-        height: calc(100% - $header-height);
         padding: 20px 50px;
         margin-top: $header-height;
         &__steps {
@@ -67,4 +66,7 @@ $header-height: 50px;
 
 .mat-mdc-dialog-content {
     max-height: none;
+    background-color: var(--dialogBackground);
+    padding: 30px 0;
+
   }

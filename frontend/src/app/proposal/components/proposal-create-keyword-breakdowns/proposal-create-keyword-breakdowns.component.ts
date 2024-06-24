@@ -1,7 +1,14 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { AsyncPipe } from '@angular/common';
-import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule,
@@ -28,11 +35,11 @@ import { ContentFormGroup } from '../proposal-create.types';
   templateUrl: './proposal-create-keyword-breakdowns.component.html',
   styleUrl: './proposal-create-keyword-breakdowns.component.scss',
 })
-export class ProposalCreateKeywordBreakdownsComponent {
+export class ProposalCreateKeywordBreakdownsComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   glossaryCtrl = new FormControl('');
   filteredGlossaries: Observable<string[]>;
-  glossaries: string[] = ['Ampel'];
+  glossaries: string[] = [];
   allGlossaries: string[] = [
     'Baumfällung',
     'Radweg',
@@ -53,6 +60,13 @@ export class ProposalCreateKeywordBreakdownsComponent {
         glossary ? this._filter(glossary) : this.allGlossaries.slice()
       )
     );
+  }
+  ngOnInit(): void {
+    if (this.contentFormGroup && this.contentFormGroup.get('glossaries')) {
+      this.glossaries = this.contentFormGroup.get('glossaries').value;
+    } else {
+      this.glossaries = [];
+    }
   }
 
   add(event: MatChipInputEvent): void {
