@@ -15,15 +15,15 @@ class IPerson(BaseModel):
     email: str
 
 class IProposal(BaseModel):
-    id: int
+    id: int = None
     title: str
     summary: str
-    glossaries: List[IGlossary]
+    glossaries: List[str]
     responsibles: List[IPerson]
-    contacts: List[IPerson]
-    createdAt: date
-    registeredAt: date
-    deadline: date
+    contacts: List[IPerson] = None
+    createdAt: str
+    registeredAt: str
+    deadline: str
     electionPeriod: str
     createdBy: str
     type: ProposalType
@@ -31,3 +31,4 @@ class IProposal(BaseModel):
     
     class Config:
         arbitrary_types_allowed = True
+        
