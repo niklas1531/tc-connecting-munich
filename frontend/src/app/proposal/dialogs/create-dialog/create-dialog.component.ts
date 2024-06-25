@@ -4,6 +4,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { SharedModule } from '../../../shared/shared.module';
 import { ProposalCreateContactsComponent } from '../../components/proposal-create-contacts/proposal-create-contacts.component';
+import { ProposalCreateDetailsComponent } from '../../components/proposal-create-dates/proposal-create-details.component';
 import { ProposalCreateFileInputComponent } from '../../components/proposal-create-file-input/proposal-create-file-input.component';
 import {
   contactsFormGroup,
@@ -21,7 +22,6 @@ import {
   deleteInCreationProposal,
 } from '../../states/proposal-overview.actions';
 import { ProposalState } from '../../states/proposal-overview.state';
-import { ProposalCreateDetailsComponent } from './../../components/proposal-create-details/proposal-create-details.component';
 
 @Component({
   selector: 'app-create-dialog',
@@ -123,7 +123,6 @@ export class CreateDialogComponent implements OnDestroy {
     const newProposal: IProposal = {
       title,
       summary,
-      glossaries,
       responsibles,
       contacts,
       createdAt,
@@ -134,6 +133,8 @@ export class CreateDialogComponent implements OnDestroy {
       deadline: processingDeadline,
       accessibility: art,
     };
-    this.store.dispatch(new createProposal({ proposal: newProposal }));
+    this.store.dispatch(
+      new createProposal({ proposal: newProposal, glossaries })
+    );
   }
 }

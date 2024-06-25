@@ -1,10 +1,11 @@
+import { IGlossary } from '../interfaces/glossary';
 import { IProposal } from '../interfaces/proposal';
 
 export class getProposals {
   static readonly type = '[] get Glossaries';
 }
 
-export class uploadProposalFile {
+export class generateSummary {
   static readonly type = '[PDF File] create Proposal';
 
   constructor(
@@ -25,6 +26,7 @@ export class createProposal {
   constructor(
     public readonly payload: {
       proposal: IProposal;
+      glossaries: IGlossary[];
     }
   ) {}
 }
