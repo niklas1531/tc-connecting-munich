@@ -5,7 +5,6 @@ import { MatDateFormats, NativeDateAdapter } from '@angular/material/core';
 })
 export class CustomDateAdapter extends NativeDateAdapter {
   parse(value: any): Date | null {
-    console.log(value);
     if (typeof value === 'string' && value.indexOf('.') > -1) {
       const str = value.split('.');
       const day = Number(str[0]);

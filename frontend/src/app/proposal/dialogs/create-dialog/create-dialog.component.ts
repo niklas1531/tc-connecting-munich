@@ -1,10 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { Observable, take, tap } from 'rxjs';
 import { SharedModule } from '../../../shared/shared.module';
 import { ProposalCreateContactsComponent } from '../../components/proposal-create-contacts/proposal-create-contacts.component';
-import { ProposalCreateDetailsComponent } from '../../components/proposal-create-dates/proposal-create-details.component';
+import { ProposalCreateDetailsComponent } from '../../components/proposal-create-details/proposal-create-details.component';
 import { ProposalCreateFileInputComponent } from '../../components/proposal-create-file-input/proposal-create-file-input.component';
 import {
   contactsFormGroup,
@@ -13,7 +14,6 @@ import {
   fileFormGroup,
 } from '../../components/proposal-create-forms';
 import { ProposalCreateKeyInformationComponent } from '../../components/proposal-create-key-information/proposal-create-key-information.component';
-import { ProposalCreateSelectsComponent } from '../../components/proposal-create-selects/proposal-create-selects.component';
 import { ProposalCreateStepsComponent } from '../../components/proposal-create-steps/proposal-create-steps.component';
 import { ProposalCreateSummaryComponent } from '../../components/proposal-create-summary/proposal-create-summary.component';
 import { IProposal } from '../../interfaces/proposal';
@@ -22,7 +22,6 @@ import {
   deleteInCreationProposal,
 } from '../../states/proposal-overview.actions';
 import { ProposalState } from '../../states/proposal-overview.state';
-
 @Component({
   selector: 'app-create-dialog',
   standalone: true,
@@ -32,7 +31,6 @@ import { ProposalState } from '../../states/proposal-overview.state';
     ProposalCreateFileInputComponent,
     ProposalCreateKeyInformationComponent,
     ProposalCreateContactsComponent,
-    ProposalCreateSelectsComponent,
     SharedModule,
     MatDialogModule,
     ProposalCreateStepsComponent,
@@ -74,7 +72,8 @@ export class CreateDialogComponent implements OnDestroy {
 
   constructor(
     public dialogRef: MatDialogRef<CreateDialogComponent>, // @Inject(MAT_DIALOG_DATA) public data: ..
-    private readonly store: Store
+    private readonly store: Store,
+    private toastr: ToastrService
   ) {}
   ngOnDestroy(): void {
     this.store.dispatch(new deleteInCreationProposal());
@@ -96,7 +95,6 @@ export class CreateDialogComponent implements OnDestroy {
   }
 
   public nextStep(next: boolean): void {
-    console.log(next);
     next && (this.selected += 1);
   }
   public previousStep(): void {
@@ -114,7 +112,6 @@ export class CreateDialogComponent implements OnDestroy {
       createdAt,
       registeredAt,
       processingDeadline,
-      processingTime,
       createdBy,
       art,
       type,
@@ -133,8 +130,17 @@ export class CreateDialogComponent implements OnDestroy {
       deadline: processingDeadline,
       accessibility: art,
     };
-    this.store.dispatch(
-      new createProposal({ proposal: newProposal, glossaries })
-    );
+    this.store
+      .dispatch(new createProposal({ proposal: newProposal, glossaries }))
+      .pipe(
+        take(1),
+        tap(
+          () => (
+            this.toastr.success('Antrag wurde erfolgreich erstellt'),
+            this.closeDialog()
+          )
+        )
+      )
+      .subscribe();
   }
 }

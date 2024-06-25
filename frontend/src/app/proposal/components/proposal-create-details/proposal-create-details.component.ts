@@ -40,8 +40,8 @@ export class ProposalCreateDetailsComponent implements OnInit {
   wahlperioden = ['1', '2', '3'];
   selectedWahlperiode = this.wahlperioden[0];
 
-  createdByOptions = ['Peter', 'Omar', 'Stephanie'];
-  selectedCreatedBy = this.createdByOptions[1];
+  // createdByOptions = ['Peter', 'Omar', 'Stephanie'];
+  // selectedCreatedBy = this.createdByOptions[1];
 
   accessibilities = Object.values(ProposalAccessibilty);
   selectedAccessibility = ProposalAccessibilty.PRIVAT;

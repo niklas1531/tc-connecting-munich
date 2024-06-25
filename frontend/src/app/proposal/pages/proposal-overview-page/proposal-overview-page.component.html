@@ -1,8 +1,13 @@
 <app-frame title="Anträge">
   @if(proposals$ | async; as proposals) {
-  <div class="proposals__content">
+  <div class="proposal">
     @for(proposal of proposals; track proposal) {
-    <div>{{ proposal.title }}</div>
+    <div class="proposal__card">
+      <h5 class="proposal__card__title">
+        {{proposal.title}}
+      </h5>
+
+    </div>
     }
   </div>
   }

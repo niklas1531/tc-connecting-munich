@@ -30,7 +30,6 @@ export class ProposalCreateFileInputComponent {
       const file = input.files[0];
       const formData: FormData = new FormData();
       formData.append('file', file, file.name);
-      console.log(formData);
       this.store
         .dispatch(new generateSummary({ file: formData, fileF: file }))
         .pipe(
@@ -53,12 +52,10 @@ export class ProposalCreateFileInputComponent {
       .pipe(
         filter((file) => !!file),
         tap((file) => {
-          console.log(file);
           ProposalCreateOperations.patchContentFormGroup(
             file,
             this.contentFormGroup
           );
-          console.log(this.contentFormGroup);
         }),
         tap(() =>
           ProposalCreateOperations.patchDetailsFormGroup(this.detailsFormGroup)

@@ -1,0 +1,14 @@
+.proposal {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(5, 1fr);
+    &__card {
+        background-color: lightblue;
+        border: 1px solid #ffffff;
+        padding: 10px;
+        border-radius: 7px;
+        &__title {
+
+        }
+    }
+}

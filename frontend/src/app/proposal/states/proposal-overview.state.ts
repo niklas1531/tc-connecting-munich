@@ -4,7 +4,9 @@ import {
   combineLatest,
   filter,
   finalize,
+  map,
   Observable,
+  of,
   switchMap,
   take,
   tap,
@@ -122,19 +124,15 @@ export class ProposalState {
   createProposal(
     context: StateContext<ProposalStateModel>,
     { payload }: createProposal
-  ) {
+  ): Observable<IProposal> {
     context.patchState({ isLoading: true });
-    console.log(
-      context.getState().selectedFile,
-      context.getState().inCreationProposal
-    );
     return this.proposalService
       .createProposal(payload.proposal, context.getState().selectedFile)
       .pipe(
         take(1),
-        tap((response) => console.log(response)),
         switchMap((proposal: IProposal) =>
           combineLatest([
+            of(proposal),
             this.proposalService.uploadProposalFile(
               proposal._id,
               context.getState().selectedFile
@@ -145,9 +143,9 @@ export class ProposalState {
             ),
           ])
         ),
+        map(([proposal, _, __]) => proposal),
         finalize(() => void context.patchState({ isLoading: false }))
-      )
-      .subscribe();
+      );
   }
 }
 

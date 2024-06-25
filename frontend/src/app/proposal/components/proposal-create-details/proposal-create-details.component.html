@@ -32,22 +32,26 @@
     <div class="selects__item">
       <mat-form-field appearance="outline">
         <mat-label>Wahlperiode</mat-label>
-        <mat-select formControlName="electionPeriod" name="Wahlperiode">
+        <!-- <mat-select formControlName="electionPeriod" name="Wahlperiode">
           @for (wahlperiode of wahlperioden; track wahlperiode) {
           <mat-option [value]="wahlperiode">{{ wahlperiode }}</mat-option>
           }
-        </mat-select></mat-form-field
+        </mat-select> -->
+        <input matInput formControlName="electionPeriod">
+        </mat-form-field
       >
     </div>
   
     <div class="selects__item">
       <mat-form-field appearance="outline">
         <mat-label>Gestellt von</mat-label>
-        <mat-select formControlName="createdBy" name="GestelltVon">
+        <!-- <mat-select formControlName="createdBy" name="GestelltVon">
           @for (createdBy of createdByOptions; track createdBy) {
           <mat-option [value]="createdBy">{{ createdBy }}</mat-option>
           }
-        </mat-select></mat-form-field
+        </mat-select> -->
+        <input matInput formControlName="createdBy">
+        </mat-form-field
       >
     </div>
   

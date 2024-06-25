@@ -5,10 +5,9 @@ import { Observable } from 'rxjs';
 import { SharedModule } from '../../../shared/shared.module';
 import { ProposalState } from '../../states/proposal-overview.state';
 import { ProposalCreateContactsComponent } from '../proposal-create-contacts/proposal-create-contacts.component';
-import { ProposalCreateDetailsComponent } from '../proposal-create-dates/proposal-create-details.component';
+import { ProposalCreateDetailsComponent } from '../proposal-create-details/proposal-create-details.component';
 import { ProposalCreateFileInputComponent } from '../proposal-create-file-input/proposal-create-file-input.component';
 import { ProposalCreateKeyInformationComponent } from '../proposal-create-key-information/proposal-create-key-information.component';
-import { ProposalCreateSelectsComponent } from '../proposal-create-selects/proposal-create-selects.component';
 import { ProposalCreateStepsComponent } from '../proposal-create-steps/proposal-create-steps.component';
 
 @Component({
@@ -18,7 +17,6 @@ import { ProposalCreateStepsComponent } from '../proposal-create-steps/proposal-
     ProposalCreateFileInputComponent,
     ProposalCreateKeyInformationComponent,
     ProposalCreateContactsComponent,
-    ProposalCreateSelectsComponent,
     SharedModule,
     MatDialogModule,
     ProposalCreateStepsComponent,

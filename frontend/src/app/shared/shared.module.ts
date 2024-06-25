@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [],
@@ -12,6 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    ToastrModule.forRoot(),
   ],
   exports: [CommonModule, FormsModule, ReactiveFormsModule],
   providers: [
