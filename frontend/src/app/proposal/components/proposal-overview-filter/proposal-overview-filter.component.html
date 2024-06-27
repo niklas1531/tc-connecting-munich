@@ -1,0 +1,16 @@
+<aside class="filter" [class.filter--active]="activeFilter" (clickOutside)="activeFilter = !activeFilter">
+    <div class="filter__header" (click)="activeFilter = !activeFilter">
+        <div class="filter__header__title">
+            <i class="bi bi-funnel"></i>
+        <span>Filter (0)</span>
+        </div>
+        @if(activeFilter) {
+            <button class="filter__header__close" >
+                <i class="bi bi-x"></i>
+            </button>
+        }
+    </div>
+    <div class="filter__body" [class.filter__body--active]="activeFilter">
+        
+    </div>
+</aside>

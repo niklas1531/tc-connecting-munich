@@ -1,0 +1,27 @@
+.glossary-list {
+    max-height: 500px;
+    width: 100%;
+    overflow-y: scroll;
+    &__section {
+        margin-inline: auto;
+    }
+    &__character {
+        position: sticky;
+        top: 0;
+        font-size: 40px;
+        font-weight: 700;
+        line-height: 48px;
+        width: 50px;
+        user-select: none;
+    }
+    &__content {
+        margin-top: -48px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        margin-left: 75px;
+        margin-right: 75px;
+
+    }
+}

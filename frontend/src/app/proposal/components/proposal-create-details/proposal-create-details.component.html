@@ -41,6 +41,18 @@
         </mat-form-field
       >
     </div>
+    <div class="selects__item">
+      <mat-form-field appearance="outline">
+        <mat-label>Verantwortliche Abteilung</mat-label>
+        <!-- <mat-select formControlName="electionPeriod" name="Wahlperiode">
+          @for (wahlperiode of wahlperioden; track wahlperiode) {
+          <mat-option [value]="wahlperiode">{{ wahlperiode }}</mat-option>
+          }
+        </mat-select> -->
+        <input matInput formControlName="responsibleDepartment">
+        </mat-form-field
+      >
+    </div>
   
     <div class="selects__item">
       <mat-form-field appearance="outline">

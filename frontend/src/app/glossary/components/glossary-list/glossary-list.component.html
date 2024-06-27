@@ -1,1 +1,18 @@
 <app-glossary-list-navigation></app-glossary-list-navigation>
+
+<div class="glossary-list">
+    @for(characterSortedGlossaryEntry of characterSortedGlossaryEntries; track characterSortedGlossaryEntry) {
+        <section
+            class="glossary-list__section"
+            [id]="'glossary-group-' + characterSortedGlossaryEntry.character"
+            [attr.data-character]="characterSortedGlossaryEntry.character"
+        >
+        <div class="glossary-list__character">{{characterSortedGlossaryEntry.character}}</div>
+        <div class="glossary-list__content">
+            @for(entry of characterSortedGlossaryEntry.entries; track entry) {
+                    <h5 (click)="navigateToDetails(entry._id)">{{entry.title}}</h5>
+            }
+        </div>
+        </section>
+    }
+</div>

@@ -1,14 +1,12 @@
-<app-frame title="Anträge">
+<app-frame title="Anträge" class="proposals">
   @if(proposals$ | async; as proposals) {
-  <div class="proposal">
-    @for(proposal of proposals; track proposal) {
-    <div class="proposal__card">
-      <h5 class="proposal__card__title">
-        {{proposal.title}}
-      </h5>
-
-    </div>
-    }
+  <p>{{ proposals.length }} Ergebnisse</p>
+  <div
+    class="proposals__list"
+    [class.proposals__list--activeFilter]="activeFilter"
+  >
+    <app-proposal-overview-table></app-proposal-overview-table>
+    <app-proposal-overview-filter></app-proposal-overview-filter>
   </div>
   }
 </app-frame>

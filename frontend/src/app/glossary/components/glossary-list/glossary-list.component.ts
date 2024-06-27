@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { GlossaryListNavigationComponent } from '../glossary-list-navigation/glossary-list-navigation.component';
-
 @Component({
   selector: 'app-glossary-list',
   standalone: true,
@@ -8,4 +8,12 @@ import { GlossaryListNavigationComponent } from '../glossary-list-navigation/glo
   styleUrl: './glossary-list.component.scss',
   imports: [GlossaryListNavigationComponent],
 })
-export class GlossaryListComponent {}
+export class GlossaryListComponent {
+  @Input() characterSortedGlossaryEntries;
+
+  constructor(private router: Router) {}
+
+  public navigateToDetails(id: string) {
+    this.router.navigate(['glossar/details', id]);
+  }
+}

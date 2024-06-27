@@ -1,4 +1,4 @@
 export interface IGlossary {
-  id: number;
+  _id: number;
   title: string;
 }

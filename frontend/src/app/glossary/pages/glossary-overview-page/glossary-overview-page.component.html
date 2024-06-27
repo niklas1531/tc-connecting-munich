@@ -3,5 +3,7 @@
     <app-input-field label="Suche" icon="search"></app-input-field>
 
     </div>
-    <app-glossary-list></app-glossary-list>
+    @if(glossaries$ | async; as glossaries) {
+    <app-glossary-list [characterSortedGlossaryEntries]="toCharacterSortedGlossaryEntries(glossaries)"></app-glossary-list>
+    }
 </app-frame>

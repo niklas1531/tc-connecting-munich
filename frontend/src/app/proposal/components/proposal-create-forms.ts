@@ -15,6 +15,7 @@ export const detailsFormGroup = new FormGroup({
   processingDeadline: new FormControl('', Validators.required),
   processingTime: new FormControl('', Validators.required),
   createdBy: new FormControl('', Validators.required),
+  responsibleDepartment: new FormControl('', Validators.required),
   art: new FormControl(undefined, Validators.required),
   type: new FormControl(undefined, Validators.required),
   electionPeriod: new FormControl('', Validators.required),

@@ -116,10 +116,12 @@ export class CreateDialogComponent implements OnDestroy {
       art,
       type,
       electionPeriod,
+      responsibleDepartment,
     } = this.detailsForm.value;
     const newProposal: IProposal = {
       title,
       summary,
+      glossaries,
       responsibles,
       contacts,
       createdAt,
@@ -127,6 +129,7 @@ export class CreateDialogComponent implements OnDestroy {
       createdBy,
       electionPeriod,
       type,
+      responsibleDepartment,
       deadline: processingDeadline,
       accessibility: art,
     };

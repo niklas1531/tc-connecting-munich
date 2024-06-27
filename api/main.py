@@ -9,8 +9,7 @@ from claudeService import generateSummary
 from fastapi import (FastAPI, File, HTTPException, Path, Query, UploadFile,
                      status)
 from fastapi.middleware.cors import CORSMiddleware
-from models import (CreateGlossary, Glossary, GlossaryInput, Proposal,
-                    ProposalInput)
+from models import CreateGlossary, Glossary, Proposal, ProposalInput
 from pymongo import MongoClient
 from PyPDF2 import PdfReader
 
@@ -63,9 +62,10 @@ async def get_proposalById(
 async def get_glossaries() -> list[Glossary]:
     glossaries = []
     cursor = glossaries_collection.find(limit=100)
+    print(cursor)
     for glossary in cursor:
         glossary['_id'] = str(glossary['_id'])
-        glossaries.append(Proposal(**glossary))
+        glossaries.append(Glossary(**glossary))
     return glossaries
 
 @app.get("/glossaries/{glossary_id}")

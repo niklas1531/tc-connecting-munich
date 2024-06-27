@@ -1,0 +1,59 @@
+@if(proposals$ | async; as proposals) {
+<div class="table">
+  <div class="table__header">
+    <div class="table__cell">Titel</div>
+    <div class="table__cell">Schlüsselbegriffe</div>
+    <div class="table__cell">Erstellt am</div>
+    <div class="table__cell">Deadline</div>
+    <div class="table__cell">Abteilung</div>
+    <div class="table__cell">Wahlperiode</div>
+    <div class="table__cell"></div>
+  </div>
+  <div class="table__body">
+    @for(proposal of proposals; track proposal) {
+    <div
+      class="table__body__row"
+      [class.table__body__row--active]="expanded === proposal"
+      (click)="expanded = expanded === proposal ? null : proposal"
+    >
+      <div class="table__cell table__cell__title">
+        {{ proposal.title }}
+      </div>
+      <div class="table__cell table__cell__keywords">
+        @for(glossary of proposal.glossaries; track glossary) {
+            <div class="glossary-item">{{glossary}}</div>
+        }
+      </div>
+      <div class="table__cell table__cell__createdAt">
+        {{ proposal.createdAt | date : "dd.MM.yyyy" }}
+      </div>
+      <div class="table__cell table__cell__deadline">
+        {{ proposal.deadline | date : "dd.MM.yyyy" }}
+      </div>
+      <div class="table__cell table__cell__department">
+        {{proposal.responsibleDepartment}}
+      </div>
+      <div class="table__cell table__cell__electionPeriod">
+        {{ proposal.electionPeriod }}
+      </div>
+      <div class="table__cell table__cell__actions">
+        @if(expanded === proposal) {
+        <button><i class="bi bi-caret-up-fill"></i></button>
+        } @else {
+        <button><i class="bi bi-caret-down-fill"></i></button>
+        }
+        <button (click)="navigateToDetails($event, proposal._id)"><i class="bi bi-eye-fill"></i></button>
+      </div>
+    </div>
+    <div
+      class="table__body__row table__body__row__expanded"
+      [class.table__body__row__expanded--active]="expanded === proposal"
+    >
+    <label >Zusammenfassung</label>
+      {{ proposal.summary }}
+    </div>
+    }
+  </div>
+</div>
+
+}

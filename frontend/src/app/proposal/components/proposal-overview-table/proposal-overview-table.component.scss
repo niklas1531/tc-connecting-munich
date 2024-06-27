@@ -1,0 +1,85 @@
+$title-grid: 3fr;
+$glossary-grid: 3fr;
+$createdAt-grid: 1fr;
+$deadline-grid: 1fr;
+$department-grid: 1fr;
+$electionPeriod-grid: 1fr;
+$actions-grid: 1fr;
+$grid: $title-grid $glossary-grid $createdAt-grid $deadline-grid
+  $department-grid $electionPeriod-grid $actions-grid;
+
+.table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden !important;
+  &__header {
+    display: grid;
+    grid-template-columns: $grid;
+    padding: 10px 20px;
+  }
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    &__row {
+      display: grid;
+      grid-template-columns: $grid;
+      padding: 10px 20px;
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      &--active {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      &:hover {
+        background: whitesmoke;
+      }
+
+      &__expanded {
+        display: none;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        label {
+            font-weight: 600;
+        }
+        &--active {
+          display: flex;
+          flex-direction: column;
+          margin-top: -10px;
+        }
+      }
+    }
+  }
+  &__cell {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+
+    &__keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      .glossary-item {
+        border-radius: 20px;
+        padding: 10px;
+        border: 1px solid black;
+      }
+    }
+    &__actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      align-items: center;
+      button {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+      }
+      i {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

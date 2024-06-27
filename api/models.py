@@ -5,10 +5,6 @@ from enums import ProposalAccessibilty, ProposalType
 from pydantic import BaseModel, Field
 
 
-class Glossary(BaseModel):
-    id: int
-    title: str
-
 class Person(BaseModel):
     firstName: str = None
     lastName: str = None
@@ -18,6 +14,7 @@ class ProposalInput(BaseModel):
     title: str
     summary: str
     responsibles: List[Person]
+    glossaries: List[str]
     contacts: List[Person] = None
     createdAt: str
     registeredAt: str
@@ -26,6 +23,7 @@ class ProposalInput(BaseModel):
     createdBy: str
     type: ProposalType
     accessibility: ProposalAccessibilty
+    responsibleDepartment: str
     
     class Config:
         schema_extra = {
@@ -33,6 +31,7 @@ class ProposalInput(BaseModel):
                 {
                     "title": "title",
                     "summary": "This is a summary",
+                    "glossaries": ["Grundwasseranstieg", "Baum", "Radweg"],
                     "responsibles": [{"firstName": "Niklas", "lastName": "Minth", "email": "niklas.minth@tum.de"}],
                     "contacts": [],
                     "createdAt": "01.05.2024",
@@ -47,7 +46,7 @@ class ProposalInput(BaseModel):
         }
         
 class Glossary(BaseModel):
-    id: str = Field(..., alias='_id'),
+    id: str = Field(..., alias='_id')
     title: str
     proposals: List[str]
     
@@ -63,7 +62,9 @@ class Proposal(BaseModel):
     id: str = Field(..., alias='_id')
     title: str
     summary: str
+    glossaries: List[str]
     responsibles: List[Person]
+    responsibleDepartment: str
     contacts: List[Person] = None
     createdAt: str
     registeredAt: str
@@ -88,7 +89,8 @@ class Proposal(BaseModel):
                     "electionPeriod": "2024",
                     "createdBy": "Niklas Minth",
                     "type": "StR-Antrag",
-                    "accessibility": "Öffentlicher Antrag"
+                    "accessibility": "Öffentlicher Antrag",
+                    "responsibleDepartment": "Bauamt"
                 }
             ]
         }

@@ -22,7 +22,7 @@ export interface GlossaryStateModel {
   },
 })
 @Injectable()
-export class ProposalState {
+export class GlossaryState {
   constructor(private readonly glossaryService: GlossaryService) {}
 
   @Selector()
