@@ -1,4 +1,7 @@
 <div class="frame">
+   @if(navigateBack) {
+    <a class="frame__backBtn" [routerLink]="navigateBack"><i class="bi bi-chevron-left"></i> Zurück</a>
+   }
     <h1>{{  title }}</h1>
     <p>{{ subTitle }}</p>
     <div class="frame__content">

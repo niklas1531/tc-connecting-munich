@@ -1,3 +1,12 @@
 .frame {
-    padding: 30px 8%;
+    padding: 50px 8% 0 8%;
+
+    &__backBtn {
+        display: flex;
+        gap: 10px;
+        color: #000000;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }

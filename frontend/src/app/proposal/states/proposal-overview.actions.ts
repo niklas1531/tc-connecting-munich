@@ -30,3 +30,17 @@ export class createProposal {
     }
   ) {}
 }
+
+export class clearSelectedProposal {
+  static readonly type = '[] clear selected Proposal';
+}
+
+export class getProposalById {
+  static readonly type = '[id] get proposal by id';
+
+  constructor(
+    public readonly payload: {
+      proposalId: string;
+    }
+  ) {}
+}

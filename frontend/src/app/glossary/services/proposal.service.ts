@@ -14,7 +14,7 @@ export class GlossaryService {
     return this.http.get<IGlossary[]>(environment.apiUrl + '/glossaries');
   }
 
-  public getGlossaryById(id: number): Observable<IGlossary> {
+  public getGlossaryById(id: string): Observable<IGlossary> {
     return this.http.get<IGlossary>(environment.apiUrl + `/glossaries/${id}`);
   }
 }

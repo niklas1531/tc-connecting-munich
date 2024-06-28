@@ -1,1 +1,5 @@
-<p>proposal-detail-page works!</p>
+@if(selectedProposal$ | async; as proposal) {
+    <app-frame [title]="proposal.title" navigateBack="/antraege">
+        
+    </app-frame>
+}

@@ -6,6 +6,7 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -18,6 +19,8 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot(),
     MatTableModule,
     MatPaginatorModule,
+    RouterLink,
+    RouterLinkActive,
   ],
   exports: [
     CommonModule,
@@ -25,6 +28,8 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
+    RouterLink,
+    RouterLinkActive,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },

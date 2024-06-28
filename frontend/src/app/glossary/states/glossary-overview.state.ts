@@ -3,13 +3,18 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { filter, Observable, take, tap } from 'rxjs';
 import { IGlossary } from '../../proposal/interfaces/glossary';
 import { GlossaryService } from '../services/proposal.service';
-import { getGlossaries } from './glossary-overview.actions';
+import {
+  clearSelectedGlossary,
+  getGlossaries,
+  getGlossaryById,
+} from './glossary-overview.actions';
 
 export interface GlossaryStateModel {
   isLoading: boolean;
   hasError: boolean;
   glossaries: IGlossary[];
   filteredGlossaries: IGlossary[];
+  selectedGlossary: IGlossary | undefined;
 }
 
 @State<GlossaryStateModel>({
@@ -19,6 +24,7 @@ export interface GlossaryStateModel {
     hasError: false,
     glossaries: [],
     filteredGlossaries: [],
+    selectedGlossary: undefined,
   },
 })
 @Injectable()
@@ -43,6 +49,10 @@ export class GlossaryState {
   static filteredGlossaries(state: GlossaryStateModel): IGlossary[] {
     return state.filteredGlossaries;
   }
+  @Selector()
+  static selectedGlossary(state: GlossaryStateModel): IGlossary {
+    return state.selectedGlossary;
+  }
 
   @Action(getGlossaries)
   getGlossaries(
@@ -55,5 +65,22 @@ export class GlossaryState {
         context.patchState({ glossaries, filteredGlossaries: glossaries })
       )
     );
+  }
+
+  @Action(getGlossaryById)
+  getGlossaryById(
+    context: StateContext<GlossaryStateModel>,
+    { payload }: getGlossaryById
+  ): Observable<IGlossary> {
+    return this.glossaryService.getGlossaryById(payload.glossaryId).pipe(
+      take(1),
+      filter((response) => !!response),
+      tap((selectedGlossary) => context.patchState({ selectedGlossary }))
+    );
+  }
+
+  @Action(clearSelectedGlossary)
+  clearSelectedGlossary(context: StateContext<GlossaryStateModel>) {
+    context.patchState({ selectedGlossary: undefined });
   }
 }

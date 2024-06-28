@@ -16,7 +16,7 @@ export class ProposalService {
     return this.http.get<IProposal[]>(environment.apiUrl + '/proposals');
   }
 
-  public getProposalById(id: number): Observable<IProposal> {
+  public getProposalById(id: string): Observable<IProposal> {
     return this.http.get<IProposal>(environment.apiUrl + `/proposals/${id}`);
   }
 
