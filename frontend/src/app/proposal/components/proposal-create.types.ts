@@ -9,6 +9,7 @@ export type DetailsFormGroup = FormGroup<{
   processingTime: FormControl<number>;
   electionPeriod: FormControl<string>;
   createdBy: FormControl<string>;
+  responsibleDepartment: FormControl<string>;
   art: FormControl<ProposalAccessibilty>;
   type: FormControl<ProposalType>;
 }>;
