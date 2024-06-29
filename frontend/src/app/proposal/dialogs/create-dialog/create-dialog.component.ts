@@ -47,7 +47,6 @@ export class CreateDialogComponent implements OnDestroy {
   contentForm = contentFormGroup;
   detailsForm = detailsFormGroup;
   contactsForm = contactsFormGroup;
-
   steps = [
     {
       title: 'Upload',

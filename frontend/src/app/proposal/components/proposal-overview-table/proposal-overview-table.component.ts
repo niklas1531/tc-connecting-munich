@@ -21,16 +21,28 @@ export class ProposalOverviewTableComponent {
   columnsToDisplay = ['title', 'severity', 'priority', 'category', 'source'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
 
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   totalRecords: number = 0;
   dataSource: any;
   pageSizeOptions: number[] = [10, 20, 30];
   pageEvent!: PageEvent;
+
+  paginatorLength = 0;
+  paginatorPageSize = 5;
+  paginatorPageSizeOptions: number[] = [5, 10, 25];
+  lowValue = 0;
+  highValue: number = this.paginatorPageSize;
 
   constructor(private router: Router) {}
 
   public navigateToDetails(event: Event, proposalId: string): void {
     event.stopPropagation();
     this.router.navigate(['antraege/details', proposalId]);
+  }
+
+  public getPaginatorData(event: PageEvent) {
+    this.lowValue = event.pageIndex * event.pageSize;
+    this.highValue = this.lowValue + event.pageSize;
+    return event;
   }
 }

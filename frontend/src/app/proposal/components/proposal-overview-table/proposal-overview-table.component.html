@@ -10,7 +10,7 @@
     <div class="table__cell"></div>
   </div>
   <div class="table__body">
-    @for(proposal of proposals; track proposal) {
+    @for(proposal of proposals | slice: lowValue : highValue; track proposal) {
     <div
       class="table__body__row"
       [class.table__body__row--active]="expanded === proposal"
@@ -55,5 +55,10 @@
     }
   </div>
 </div>
-
+<mat-paginator [length]="proposals ? proposals.length: paginatorLength"
+              [pageSize]="paginatorPageSize"
+              [pageSizeOptions]="[5, 10, 25]"
+              aria-label="Select page"
+              (page)="paginator.index = $event.pageIndex; paginator.pageSize = $event.pageSize; getPaginatorData($event)">
+</mat-paginator>
 }

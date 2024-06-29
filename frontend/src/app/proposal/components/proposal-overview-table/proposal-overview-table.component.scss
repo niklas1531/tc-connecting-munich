@@ -13,6 +13,7 @@ $grid: $title-grid $glossary-grid $createdAt-grid $deadline-grid
   display: flex;
   flex-direction: column;
   overflow: hidden !important;
+  margin-bottom: 10px;
   &__header {
     display: grid;
     grid-template-columns: $grid;
@@ -22,6 +23,8 @@ $grid: $title-grid $glossary-grid $createdAt-grid $deadline-grid
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: 600px;
+    overflow-y: scroll;
     &__row {
       display: grid;
       grid-template-columns: $grid;
@@ -82,4 +85,8 @@ $grid: $title-grid $glossary-grid $createdAt-grid $deadline-grid
       }
     }
   }
+}
+
+::ng-deep .mat-mdc-paginator  {
+  background-color: transparent !important;
 }

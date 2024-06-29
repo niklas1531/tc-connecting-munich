@@ -1,11 +1,7 @@
 <div mat-dialog-content class="mat-dialog-content">
   <header class="dialog__header">
     <div class="dialog__header__arrow-back">
-      <button
-        class="dialog__header__btn"
-        (click)="previousStep()"
-        [disabled]="selected === 0"
-      >
+      <button class="dialog__header__btn" (click)="previousStep()" [disabled]="selected === 0">
         <i class="bi bi-arrow-left-short dialog__header__btn__icon"></i>
       </button>
     </div>
@@ -19,17 +15,16 @@
     <h2>Antrags-Generator</h2>
     <p>Erstellen Sie einen neuen Antrag</p>
     <div class="dialog__content__steps">
-      <app-proposal-create-steps
-        (moveToStep)="goToStep($event)"
-        [selected]="selected"
-        [fileForm]="fileForm" [contentForm]="contentForm" [detailsForm]="detailsForm" [contactsForm]="contactsForm"
-      ></app-proposal-create-steps>
+      <app-proposal-create-steps (moveToStep)="goToStep($event)" [selected]="selected" [fileForm]="fileForm"
+        [contentForm]="contentForm" [detailsForm]="detailsForm"
+        [contactsForm]="contactsForm"></app-proposal-create-steps>
     </div>
     <div class="dialog__content__container">
       <h3>{{ steps[selected].title }}</h3>
 
-      @switch (selected) { @case (0) { @if(selectedFile$ | async; as
-      selectedFile) {
+      @switch (selected) {
+      @case (0) {
+      @if(selectedFile$ | async; as selectedFile) {
       <div>
         <i class="bi bi-file-earmark-pdf-fill"></i>
         {{ selectedFile.get("file").name }}
@@ -37,9 +32,11 @@
           <i class="bi bi-x"></i>
         </button>
       </div>
-      } @else {
+      }
+      @else {
       <div class="dialog__content__file-upload">
-        <app-proposal-create-file-input [fileFormGroup]="fileForm" [contentFormGroup]="contentForm" [detailsFormGroup]="detailsForm" [contactsFormGroup]="contactsForm"></app-proposal-create-file-input>
+        <app-proposal-create-file-input [fileFormGroup]="fileForm" [contentFormGroup]="contentForm"
+          [detailsFormGroup]="detailsForm" [contactsFormGroup]="contactsForm"></app-proposal-create-file-input>
       </div>
       } } @case (1) {
       <app-proposal-create-key-information [contentFormGroup]="contentForm"></app-proposal-create-key-information>
@@ -49,26 +46,26 @@
       <!-- TODO add button for contacts to also add more input fields -->
       <app-proposal-create-contacts [contactsFormGroup]="contactsForm"></app-proposal-create-contacts>
       } @case (4) {
-      <app-proposal-create-summary [fileForm]="fileForm" [contentForm]="contentForm" [detailsForm]="detailsForm" [contactsForm]="contactsForm" (moveToStep)="goToStep($event)"></app-proposal-create-summary>
+      <app-proposal-create-summary [fileForm]="fileForm" [contentForm]="contentForm" [detailsForm]="detailsForm"
+        [contactsForm]="contactsForm" (moveToStep)="goToStep($event)"></app-proposal-create-summary>
       } @default {
       <p>No step found</p>
-      } } @if(selected < 4) {
-      <button
-        (click)="nextStep(true)"
+      } } @if(selected < 4) { <button (click)="nextStep(true)"
         class="dialog__content__container dialog__content__container__button"
-        [disabled]="steps[selected]?.form?.invalid"
-      >
+        [disabled]="steps[selected]?.form?.invalid">
         Weiter
-      </button>
-      } @else {
-      <button
-        (click)="createProposal()"
-        class="dialog__content__container dialog__content__container__button"
-        [disabled]="fileForm.invalid || contentForm.invalid || detailsForm.invalid || contactsForm.invalid"
-      >
-        Antrag Erstellen
-      </button>
-      }
+        </button>
+        } @else {
+        <button (click)="createProposal()" class="dialog__content__container dialog__content__container__button"
+          [disabled]="
+          fileForm.invalid ||
+          contentForm.invalid ||
+          detailsForm.invalid ||
+          contactsForm.invalid
+        ">
+          Antrag Erstellen
+        </button>
+        }
     </div>
   </div>
 </div>
