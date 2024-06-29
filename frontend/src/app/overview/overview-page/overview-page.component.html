@@ -1,9 +1,34 @@
 <div class="page">
-    <div class="page__content">
-        <div class="page__content__intro">
-            <h1>Suchen, Erstellen und Verwalten von Anträgen mit dem Ratsinformationssystem München</h1>
-            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo d</p>
-            <a class="button" href="/search">Suche Starten</a>
+  <div class="page__content">
+    <div class="page__content__intro">
+      <h1>
+        Suchen, Erstellen und Verwalten von Anträgen mit dem
+        Ratsinformationssystem München
+      </h1>
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+        voluptua. At vero eos et accusam et justo duo d
+      </p>
+      <!-- <a class="button" href="/search">Suche Starten</a> -->
+      <div class="search-input-with-dropdown">
+        <div class="left-side-wrapper">
+          <div class="search-icon"></div>
+          <form>
+            <label for="search">Suche</label>
+            <input type="text" id="search" placeholder="Suche..." />
+          </form>
         </div>
+        <div class="vertical-divider"></div>
+        <span class="btn-dropdown">
+            <button [matMenuTriggerFor]="options" class="btn-dropdown__btn">{{selectedType}}</button>
+            <mat-menu #options>
+                @for(option of antragsOptions; track option) {
+                    <button [class.selected]="selectedType === option" (click)="changeSelectedType(option)">{{option}}</button>
+                }
+            </mat-menu>
+        </span>
+      </div>
     </div>
+  </div>
 </div>
