@@ -10,13 +10,12 @@
         eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
         voluptua. At vero eos et accusam et justo duo d
       </p>
-      <!-- <a class="button" href="/search">Suche Starten</a> -->
       <div class="search-input-with-dropdown">
         <div class="left-side-wrapper">
           <div class="search-icon"></div>
           <form>
             <label for="search">Suche</label>
-            <input type="text" id="search" placeholder="Suche..." />
+            <input type="text" id="search" placeholder="Suche..." (keydown.enter)="startSearch($event)"/>
           </form>
         </div>
         <div class="vertical-divider"></div>

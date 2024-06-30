@@ -16,7 +16,7 @@ import { ProposalState } from '../../states/proposal-overview.state';
   styleUrl: './proposal-overview-table.component.scss',
 })
 export class ProposalOverviewTableComponent {
-  @Select(ProposalState.proposals) proposals$!: Observable<IProposal>;
+  @Select(ProposalState.proposals) proposals$!: Observable<IProposal[]>;
   public expanded: IProposal | undefined | null;
   columnsToDisplay = ['title', 'severity', 'priority', 'category', 'source'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];

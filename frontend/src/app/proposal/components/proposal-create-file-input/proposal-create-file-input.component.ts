@@ -65,6 +65,12 @@ export class ProposalCreateFileInputComponent {
             file,
             this.detailsFormGroup
           )
+        ),
+        tap((file) =>
+          ProposalCreateOperations.patchContactsFormGroup(
+            file,
+            this.contactsFormGroup
+          )
         )
       )
       .subscribe();

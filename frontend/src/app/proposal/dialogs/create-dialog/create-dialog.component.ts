@@ -95,6 +95,7 @@ export class CreateDialogComponent implements OnDestroy {
 
   public nextStep(next: boolean): void {
     next && (this.selected += 1);
+    console.log(this.contactsForm);
   }
   public previousStep(): void {
     this.selected >= 1 && (this.selected -= 1);
@@ -106,7 +107,7 @@ export class CreateDialogComponent implements OnDestroy {
 
   public createProposal() {
     const { title, summary, glossaries } = this.contentForm.value;
-    const { responsibles, contacts } = this.contactsForm.value;
+    const { responsibles } = this.contactsForm.value;
     const {
       createdAt,
       registeredAt,
@@ -122,7 +123,6 @@ export class CreateDialogComponent implements OnDestroy {
       summary,
       glossaries,
       responsibles,
-      contacts,
       createdAt,
       registeredAt,
       createdBy,

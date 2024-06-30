@@ -44,3 +44,23 @@ export class getProposalById {
     }
   ) {}
 }
+
+
+export class setProposals {
+  static readonly type = '[Proposals] set Proposals';
+  constructor(
+    public readonly payload: {
+      proposals: IProposal[];
+    }
+  ) {}
+}
+
+export class setSession {
+  static readonly type = '[id] set sessionId';
+
+  constructor(
+    public readonly payload: {
+      sessionId: string;
+    }
+  ) {}
+}

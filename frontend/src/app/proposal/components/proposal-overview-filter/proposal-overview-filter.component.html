@@ -1,16 +1,69 @@
-<aside class="filter" [class.filter--active]="activeFilter" (clickOutside)="activeFilter = !activeFilter">
-    <div class="filter__header" (click)="activeFilter = !activeFilter">
-        <div class="filter__header__title">
-            <i class="bi bi-funnel"></i>
-        <span>Filter (0)</span>
-        </div>
-        @if(activeFilter) {
-            <button class="filter__header__close" >
-                <i class="bi bi-x"></i>
+<aside
+  class="filter"
+  [class.filter--active]="filterService.filterState"
+  (clickOutside)="filterService.setFilterState(!filterService.filterState)"
+>
+  <div
+    class="filter__header"
+    (click)="filterService.setFilterState(!filterService.filterState)"
+  >
+    <div class="filter__header__title">
+      <i class="bi bi-funnel"></i>
+      <span>Filter</span>
+    </div>
+    @if(filterService.filterState) {
+    <button class="filter__header__close">
+      <i class="bi bi-x"></i>
+    </button>
+    }
+  </div>
+  <div
+    class="filter__body"
+    [class.filter__body--active]="filterService.filterState"
+  >
+    <mat-tab-group>
+      <mat-tab label="Chat">
+        <div class="filter__body__container">
+          <div class="filter__body__chat">
+            @for(chat of searchEngineService.ChatHistory; track chat) {
+            <span
+              class="filter__body__chat__user"
+              [class.filter__body__chat__user--user]="
+                chat.userType === userType.USER
+              "
+              [class.filter__body__chat__user--system]="
+                chat.userType === userType.SYSTEM
+              "
+            >
+              {{ chat.userType === userType.USER ? "Du" : "System" }}
+            </span>
+            <div
+              class="filter__body__chat__item"
+              [class.filter__body__chat__item--user]="
+                chat.userType === userType.USER
+              "
+              [class.filter__body__chat__item--system]="
+                chat.userType === userType.SYSTEM
+              "
+            >
+              <span>{{ chat.message }}</span>
+            </div>
+            }
+          </div>
+          <div class="filter__body__input">
+            <textarea
+              type="text"
+              placeholder="Grenze deine Suche ein..."
+              (keydown.enter)="addMessage()"
+              #messageInput
+            ></textarea>
+            <button (click)="addMessage()">
+              <i class="bi bi-send-fill"></i>
             </button>
-        }
-    </div>
-    <div class="filter__body" [class.filter__body--active]="activeFilter">
-        
-    </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Manuell"> </mat-tab>
+    </mat-tab-group>
+  </div>
 </aside>

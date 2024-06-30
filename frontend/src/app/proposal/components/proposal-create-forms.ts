@@ -1,4 +1,4 @@
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export const fileFormGroup = new FormGroup({
   file: new FormControl(undefined, Validators.required),
@@ -22,6 +22,5 @@ export const detailsFormGroup = new FormGroup({
 });
 
 export const contactsFormGroup = new FormGroup({
-  responsibles: new FormArray([], Validators.required),
-  contacts: new FormArray([]),
+  responsibles: new FormControl([], Validators.required),
 });

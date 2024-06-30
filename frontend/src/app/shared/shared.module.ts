@@ -12,6 +12,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 @NgModule({
@@ -32,6 +33,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatIconModule,
     MatProgressSpinnerModule,
     MatMenuModule,
+    MatTabsModule,
   ],
   exports: [
     CommonModule,
@@ -47,6 +49,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatIconModule,
     MatProgressSpinnerModule,
     MatMenuModule,
+    MatTabsModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },

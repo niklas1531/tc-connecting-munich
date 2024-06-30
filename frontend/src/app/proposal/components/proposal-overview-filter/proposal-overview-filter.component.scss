@@ -36,8 +36,84 @@
         background-color: #ffffff;
         &--active {
             width: 400px;
-            height: 50px;
+            height: calc(100vh - 257px);
         }
         transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+        &__container {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            height: 100%;
+        }
+        &__chat {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 10px 20px;
+            &__item {
+                border-radius: 10px;
+                padding: 10px;
+                color: #ffffff;
+                max-width: 70%;
+                margin: 5px 0;
+                &--user {
+                    background-color: var(--lightBlue);
+                    align-self: flex-end;
+                }
+                &--system {
+                    background-color: #eaebf0;
+                    align-self: flex-start;
+                    color: #000000;
+                }
+            }
+            &__user {
+                color: #aebdcf;
+                font-size: 12px;
+                &--user {
+                    align-self: flex-end;
+                }
+                &--system {
+                    align-self: flex-start;
+                }
+            }
+        }
+        &__input {
+            border-top: 1px solid #aebdcf;
+            position: absolute;
+            bottom: 0;
+            width: 90%;
+            margin: 5%;
+            min-height: 50px;
+            box-sizing: border-box;
+            textarea {
+                padding: 20px;
+                height: 100%;
+                width: 100%;
+                box-sizing: border-box;
+                border: none;
+                white-space: normal;
+                word-wrap: break-word;
+            }
+            button {
+                background-color: transparent;
+                border: none;
+                padding: 0;
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                i {
+                    color: var(--lightBlue);
+                    font-size: 1.3rem;
+                }
+            }
+        }
     }
   }
+
+
+::ng-deep {
+    .mat-mdc-tab-group, .mat-mdc-tab-body-wrapper {
+        height: 100% !important;
+    }
+}

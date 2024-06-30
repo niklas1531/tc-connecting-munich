@@ -1,6 +1,5 @@
 <form class="contacts">
   <div class="container">
-    <h3>Verantwortliche*</h3>
     @if(editView) {
     <form class="input" [formGroup]="responsibleInput">
       <mat-form-field appearance="outline">
@@ -17,51 +16,17 @@
       </mat-form-field>
       <button (click)="addResponsible()">Add</button>
     </form>
-    } @for(responsibleFormGroup of responsiblesFormArray.controls; track
-    responsibleFormGroup; let index = $index) {
-    <div class="input results">
-      <span
-        >{{ responsibleFormGroup.get("firstName").value }},
-        {{ responsibleFormGroup.get("lastName").value }},
-        {{ responsibleFormGroup.get("email").value }}</span
-      >
-      <button
-        class="remove-btn"
-        (click)="responsiblesFormArray.removeAt(index)"
-      >
-        X
-      </button>
-    </div>
     }
-  </div>
-  <div class="container">
-    <h3>Kontaktpersonen</h3>
-    @if(editView) {
-        <form class="input" [formGroup]="contactInput">
-            <mat-form-field appearance="outline">
-              <mat-label>Vorname</mat-label>
-              <input matInput formControlName="firstName" />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Nachname</mat-label>
-              <input matInput formControlName="lastName" />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Email</mat-label>
-              <input matInput type="email" formControlName="email" />
-            </mat-form-field>
-            <button (click)="addContact()">Add</button>
-          </form>
-    }
-    @for(contactFormGroup of contactsFormArray.controls; track contactFormGroup;
+    @for(contact of responsibles; track contact;
     let index = $index) {
     <div class="input results">
       <span
-        >{{ contactFormGroup.get("firstName").value }},
-        {{ contactFormGroup.get("lastName").value }},
-        {{ contactFormGroup.get("email").value }}</span
+        >{{ contact.firstName }},
+        {{contact.lastName }}
+        {{contact?.email ? ', ' +  contact?.email: ''}}
+        </span
       >
-      <button class="remove-btn" (click)="contactsFormArray.removeAt(index)">
+      <button class="remove-btn" (click)="removeResponsible(index)">
         X
       </button>
     </div>
