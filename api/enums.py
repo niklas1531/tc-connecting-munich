@@ -12,3 +12,7 @@ class ProposalType(str, Enum):
     BA_SITZUNGSVORLAGE = 'BA-Sitzungsvorlage',
     BV_EMPFEHLUNG = 'BV-Empfehlung',
     BV_ANFRAGE = 'BV-Anfrage',
+    
+class UserType(str, Enum):
+  SYSTEM = 'System',
+  USER = 'Nutzer',

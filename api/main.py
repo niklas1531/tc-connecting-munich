@@ -5,11 +5,11 @@ from typing import Annotated, List, Union
 
 import gridfs
 from bson import ObjectId
-from claudeService import generateSummary
-from fastapi import (FastAPI, File, HTTPException, Path, Query, UploadFile,
+from claudeService import generateSummary, searchProposalsAI
+from fastapi import (FastAPI, File, HTTPException, Path, Query, UploadFile, Body,
                      status)
 from fastapi.middleware.cors import CORSMiddleware
-from models import CreateGlossary, Glossary, Proposal, ProposalInput
+from models import CreateGlossary, Glossary, Proposal, ProposalInput, SearchSession
 from pymongo import MongoClient
 from PyPDF2 import PdfReader
 
@@ -20,6 +20,7 @@ db = client.get_database("TechChallenge")
 proposals_collection = db.get_collection("proposals")
 glossaries_collection = db.get_collection("glossaries")
 file_collection = db.get_collection("files")
+searchHistory_collection = db.get_collection("searchHistory")
 fs = gridfs.GridFS(db, collection="files")
 
 origins = [
@@ -82,42 +83,50 @@ async def get_glossaryById(
 @app.post("/generateSummary")
 async def uploadProposal(file: Union[UploadFile, None] = None):
     
-    # if not file:
-    #     return {"message": "No upload file sent"}
+    if not file:
+        return {"message": "No upload file sent"}
 
-    # contents = await file.read()
+    existingGlossaries: List[Glossary] = await get_glossaries()
+    contents = await file.read()
 
-    # reader = PdfReader(io.BytesIO(contents))
-    # page = reader.pages[0]
-    # text = page.extract_text()
-    # response_str = generateSummary(text)
-    # print(response_str)
-    # print(response_str[0].text)
-    # response = response_str[0].text
+    reader = PdfReader(io.BytesIO(contents))
+    page = reader.pages[0]
+    text = page.extract_text()
+    response_str = generateSummary(text, existingGlossaries)
+    response = response_str[0].text
     
-    # data = json.loads(response)
-    # title = data["title"] or ''
-    # summary = data["summary"] or ''
-    # glossaries = data["glossaries"] or []
-    # contacts = data["contacts"] or []
-    # return {'title': title, 'summary':summary, 'glossaries':glossaries, 'contacts':contacts}
-    return {
-    "title": "Auskunft zu Einsätzen wegen Grundwasseranstieg in München",
-    "summary": "Anfrage an den Oberbürgermeister bezüglich der Einsätze von Feuerwehr und THW wegen Grundwasseranstieg in Kellern im Münchner Stadtgebiet vom 30.05. bis 04.06.2024. Es werden Informationen zu Anzahl und Verteilung der Einsätze, genauen Einsatzorten und einer möglichen Lagekarte angefordert.",
-    "glossaries": [
-        "Grundwasseranstieg",
-        "Feuerwehreinsätze",
-        "Unwetter",
-        "Stadtbezirke",
-        "Lagekarte"
-    ],
-    "contacts": [
-        "Dieter Reiter",
-        "Iris Wassill",
-        "Markus Walbrunn",
-        "Daniel Stanke"
-    ]
-    }
+    data = json.loads(response)
+    title = data["title"] or ''
+    summary = data["summary"] or ''
+    glossaries = data["glossaries"] or []
+    contacts = data["contacts"] or []
+    responsibleDepartment = data['responsibleDepartment'] or ''
+    return {'title': title, 'summary':summary, 'glossaries':glossaries, 'responsibles':contacts, 'responsibleDepartment': responsibleDepartment}
+#     return {
+#     "title": "Rückabwicklung der M-net-Vertragskündigungen",
+#     "summary": "Die CSU-FW-Fraktion fordert die Stadtwerke München GmbH und deren Tochter M-net auf, auch in wirtschaftlich weniger attraktiven Gegenden für ein zukunftssicheres Angebot an Kommunikationstechnologien zu sorgen. Bereits gekündigte Verträge mit Privatkunden sollen rückgängig gemacht und weitergeführt werden. Dies folgt einem Bericht über einen Ramersdorfer, dem nach 26 Jahren der Festnetzvertrag gekündigt wurde, da sich der Betrieb des kupferbasierten Netzes nicht mehr lohne und ein Glasfaserausbau nicht geplant sei.",
+#     "glossaries": [
+#         "Daseinsvorsorge",
+#         "Telekommunikation",
+#         "Netzausbau",
+#         "Vertragsrückabwicklung"
+#     ],
+#     "responsibles": [
+#         {
+#             "firstName": "Manuel",
+#             "lastName": "Pretzl"
+#         },
+#         {
+#             "firstName": "Hans-Peter",
+#             "lastName": "Mehling"
+#         },
+#         {
+#             "firstName": "Dieter",
+#             "lastName": "Reiter"
+#         }
+#     ],
+#     "responsibleDepartment": "CSU-FW-Fraktion"
+# }
 
 @app.post("/createProposal")
 async def createProposal(proposal: Union[ProposalInput, None] = None) -> Proposal:
@@ -136,7 +145,7 @@ async def linkGlossariesToProposal(proposal_id: str, glossaries: Union[List[str]
 @app.post("/uploadProposalFile/{proposal_id}")
 async def uploadProposalFile(proposal_id: str, file: UploadFile = File(...)):
     contents = await file.read()
-    fs.put(contents, filename=proposal_id, proposal_id=proposal_id)
+    fs.put(contents, filename=file.filename, proposal_id=proposal_id)
 
 
 def update_glossary(title: str, proposal_id: str):
@@ -150,3 +159,16 @@ def update_glossary(title: str, proposal_id: str):
     else:
         new_glossary = CreateGlossary(title=title, proposals=[proposal_id])
         glossaries_collection.insert_one(new_glossary.dict())
+        
+@app.post("/search")
+async def searchProposals(message: str = Body(...)):
+    existingProposals: List[Proposal] = await get_proposals()
+    response_str = searchProposalsAI(message, existingProposals)
+    response = response_str[0].text
+    data = json.loads(response)
+    filtered_proposals = data["filtered_proposals"] or []
+    response = data["response"] or ''
+    proposal_ids = [str(proposal['id']) for proposal in filtered_proposals]
+    search_session = SearchSession(search=[message], response=[response], filtered_proposals=proposal_ids)
+    createdSession = searchHistory_collection.insert_one(search_session.dict())
+    return {'filtered_proposals': filtered_proposals, 'response': response, 'searchSessionId': str(createdSession.inserted_id)}

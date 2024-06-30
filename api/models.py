@@ -6,16 +6,15 @@ from pydantic import BaseModel, Field
 
 
 class Person(BaseModel):
-    firstName: str = None
-    lastName: str = None
-    email: str
+    firstName: str
+    lastName: str
+    email: Optional[str] = None
 
 class ProposalInput(BaseModel):
     title: str
     summary: str
     responsibles: List[Person]
     glossaries: List[str]
-    contacts: List[Person] = None
     createdAt: str
     registeredAt: str
     deadline: str
@@ -33,7 +32,6 @@ class ProposalInput(BaseModel):
                     "summary": "This is a summary",
                     "glossaries": ["Grundwasseranstieg", "Baum", "Radweg"],
                     "responsibles": [{"firstName": "Niklas", "lastName": "Minth", "email": "niklas.minth@tum.de"}],
-                    "contacts": [],
                     "createdAt": "01.05.2024",
                     "registeredAt": "01.06.2024",
                     "deadline": "01.12.2024",
@@ -65,7 +63,6 @@ class Proposal(BaseModel):
     glossaries: List[str]
     responsibles: List[Person]
     responsibleDepartment: str
-    contacts: List[Person] = None
     createdAt: str
     registeredAt: str
     deadline: str
@@ -82,7 +79,6 @@ class Proposal(BaseModel):
                     "title": "title",
                     "summary": "This is a summary",
                     "responsibles": [{"firstName": "Niklas", "lastName": "Minth", "email": "niklas.minth@tum.de"}],
-                    "contacts": [],
                     "createdAt": "01.05.2024",
                     "registeredAt": "01.06.2024",
                     "deadline": "01.12.2024",
@@ -94,3 +90,7 @@ class Proposal(BaseModel):
                 }
             ]
         }
+class SearchSession(BaseModel):
+    search: List[str]
+    response: List[str]
+    filtered_proposals: List[str]
