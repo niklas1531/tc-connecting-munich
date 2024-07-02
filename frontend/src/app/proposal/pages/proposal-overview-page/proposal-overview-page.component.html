@@ -3,7 +3,7 @@
   <p>{{ proposals.length }} Ergebnisse</p>
   <div
     class="proposals__list"
-    [class.proposals__list--activeFilter]="activeFilter"
+    [class.proposals__list--activeFilter]="filterService.filterState"
   >
     <app-proposal-overview-table></app-proposal-overview-table>
     <app-proposal-overview-filter></app-proposal-overview-filter>
