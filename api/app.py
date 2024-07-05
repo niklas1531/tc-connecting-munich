@@ -15,7 +15,7 @@ from PyPDF2 import PdfReader
 
 app = FastAPI()
 
-client = MongoClient('mongodb+srv://tech-challenge-admin:tech-challenge-ss24@techchallengecluster.vsppdlc.mongodb.net/?retryWrites=true&w=majority&appName=TechChallengeCluster')
+client = MongoClient('mongodb+srv://tech-challenge-admin:tech-challenge-ss24@techchallengecluster.vsppdlc.mongodb.net/?retryWrites=true&w=majority&appName=TechChallengeCluster',tls=True, tlsAllowInvalidCertificates=True)
 db = client.get_database("TechChallenge")
 proposals_collection = db.get_collection("proposals")
 glossaries_collection = db.get_collection("glossaries")

@@ -15,6 +15,7 @@ import { Chat, userType } from '../interfaces/chat';
 })
 export class SearchEngineService {
   private chatHistory: Chat[] = [];
+  private loading = false;
 
   constructor(private http: HttpClient, private store: Store) {}
 
@@ -22,8 +23,13 @@ export class SearchEngineService {
     return this.chatHistory;
   }
 
+  public get Loading(): boolean {
+    return this.loading;
+  }
+
   public addChat(chat: Chat): void {
     this.chatHistory.push(chat);
+    this.loading = true;
     this.sortChatHistory();
     this.http
       .post<{
@@ -49,7 +55,8 @@ export class SearchEngineService {
               new setSession({ sessionId: response.searchSessionId })
             )
           )
-        )
+        ),
+        tap(() => (this.loading = false))
       )
       .subscribe();
   }
