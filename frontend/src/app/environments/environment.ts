@@ -1,3 +1,4 @@
 export const environment = {
-  apiUrl: 'http://localhost:8000',
+  apiUrl:
+    'https://ukmunzfmaqksbiph543vtyhge40uhubv.lambda-url.eu-north-1.on.aws/',
 };
