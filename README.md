@@ -28,6 +28,28 @@ There is a disconnect between the search process (finding relevant proposals) an
 - Intuitive proposal submission forms with validation checks.
 - Status tracking and notification alerts for proposal authors.
 
+#### 2.1.3 Screenshots of Prototype
+<table>
+  <tr>
+    <td><img width="300" alt="Overview" src="https://github.com/niklas1531/tc-connecting-munich/assets/97844057/cc9f65b7-2db3-4f39-a3c8-2871043dcfac"></td>
+    <td><img width="300" alt="Proposals" src="https://github.com/niklas1531/tc-connecting-munich/assets/97844057/26db3456-c903-4db1-b3e4-4e44df2e0b08"></td>
+    <td><img width="300" alt="SearchEngine" src="https://github.com/niklas1531/tc-connecting-munich/assets/97844057/7eb68e37-ece5-48f2-9b0a-d388e23a1fe2"></td>
+    <td><img width="300" alt="Glossar" src="https://github.com/niklas1531/tc-connecting-munich/assets/97844057/f838320a-74cd-4a69-bcf9-fee1743490ae"></td>
+  </tr>
+  <tr>
+    <td><img width="300" alt="CreationProcess_01" src="https://github.com/niklas1531/tc-connecting-munich/assets/97844057/d15bba2a-7f8c-4d4a-9470-f7e1e80470be"></td>
+    <td><img width="300" alt="CreationProcess_02" src="https://github.com/niklas1531/tc-connecting-munich/assets/97844057/94f68011-d36d-4898-940d-36f63cf566e9"></td>
+    <td><img width="300" alt="CreationProcess_03" src="https://github.com/niklas1531/tc-connecting-munich/assets/97844057/be2eae09-a48c-42d7-b0e3-560ca0649d55"></td>
+    <td><img width="300" alt="CreationProcess_04" src="https://github.com/niklas1531/tc-connecting-munich/assets/97844057/296b698a-24f7-49de-adae-3ad67784722b"></td>
+  </tr>
+  <tr>
+    <td><img width="300" alt="CreationProcess_05" src="https://github.com/niklas1531/tc-connecting-munich/assets/97844057/17e2e767-d077-4dc2-a5dd-ec69304a3ab2"></td>
+    <td><img width="300" alt="CreationProcess_06" src="https://github.com/niklas1531/tc-connecting-munich/assets/97844057/e8415a0e-2904-41b2-ae87-17a64939e0a6"></td>
+    <td><img width="300" alt="CreationProcess_07" src="https://github.com/niklas1531/tc-connecting-munich/assets/97844057/68cae162-4108-45e3-b095-f01f13cdf56c"></td>
+    <td></td>
+  </tr>
+</table>
+
 ### 2.2. Infrastructure
 
 #### 2.2.1. Architecture Diagram
