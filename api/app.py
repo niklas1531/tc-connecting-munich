@@ -12,10 +12,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from models import CreateGlossary, Glossary, Proposal, ProposalInput, SearchSession
 from pymongo import MongoClient
 from PyPDF2 import PdfReader
+from dotenv import load_dotenv
+import os
+from mangum import Mangum
 
 app = FastAPI()
+handler = Mangum(app)
+load_dotenv()
 
-client = MongoClient('mongodb+srv://tech-challenge-admin:tech-challenge-ss24@techchallengecluster.vsppdlc.mongodb.net/?retryWrites=true&w=majority&appName=TechChallengeCluster',tls=True, tlsAllowInvalidCertificates=True)
+
+client = MongoClient(os.getenv('MONGO_URI'),tls=True, tlsAllowInvalidCertificates=True)
 db = client.get_database("TechChallenge")
 proposals_collection = db.get_collection("proposals")
 glossaries_collection = db.get_collection("glossaries")
@@ -23,6 +29,7 @@ file_collection = db.get_collection("files")
 searchHistory_collection = db.get_collection("searchHistory")
 fs = gridfs.GridFS(db, collection="files")
 
+# Only for local testing mode
 origins = [
     "http://localhost",
 ]
@@ -162,9 +169,21 @@ def update_glossary(title: str, proposal_id: str):
         
 @app.post("/search")
 async def searchProposals(message: str = Body(...)):
+    print(message)
     existingProposals: List[Proposal] = await get_proposals()
+    print('Existing Proposals: ' , len(existingProposals))
     response_str = searchProposalsAI(message, existingProposals)
+    if not response_str or not response_str[0].text:
+        return {'filtered_proposals': existingProposals, 'response': 'Es konnten keine Anträge zu diesem Thema gefunden werden. Probieren Sie es erneut', 'searchSessionId': 0}
     response = response_str[0].text
+
+    try:
+        data = json.loads(response)
+    except json.JSONDecodeError as e:
+        print(f"JSON decode error: {e}")
+        return {'filtered_proposals': existingProposals, 'response': 'Es konnten keine Anträge zu diesem Thema gefunden werden. Probieren Sie es erneut', 'searchSessionId': 0}
+    
+    
     data = json.loads(response)
     filtered_proposals = data["filtered_proposals"] or []
     response = data["response"] or ''

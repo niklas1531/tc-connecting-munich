@@ -1,2 +1,7 @@
 venv
 __pycache__
+dependencies
+aws_lambda_artifact
+aws_lambda_artifact.zip
+.DS_Store
+.env

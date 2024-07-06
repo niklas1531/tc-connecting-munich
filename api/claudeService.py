@@ -2,9 +2,13 @@ from typing import List
 
 import anthropic
 from models import Glossary, Proposal
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 client = anthropic.Anthropic(
-    api_key="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",
+    api_key= os.getenv("ANTROPHIC_SECRET_KEY"),
 )
 
 def generateSummary(text: str, existingGlossaries: List[Glossary]):
