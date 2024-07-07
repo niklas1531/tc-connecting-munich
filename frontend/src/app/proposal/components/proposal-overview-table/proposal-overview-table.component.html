@@ -55,6 +55,25 @@
     }
   </div>
 </div>
+<div class="cards">
+  @for(proposal of proposals | slice: lowValue : highValue; track proposal) {
+    <div class="card">
+      <h6>{{proposal.title}}</h6>
+      <hr>
+      <p><strong>Abteilung: </strong>{{proposal.responsibleDepartment}}</p>
+      <p><strong>Wahlperiode: </strong>{{proposal.electionPeriod}}</p>
+      <div class="keywords">
+        @for(glossary of proposal.glossaries; track glossary) {
+            <div class="keyword">{{glossary}}</div>
+        }
+      </div>
+      <details>
+        <summary>Zusammenfassung</summary>
+        <p>{{proposal.summary}}</p>
+      </details>
+    </div>
+  }
+</div>
 <mat-paginator [length]="proposals ? proposals.length: paginatorLength"
               [pageSize]="paginatorPageSize"
               [pageSizeOptions]="[5, 10, 25]"
