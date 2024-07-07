@@ -24,6 +24,13 @@
                 }
             }
         }
+        @media only screen and (max-width: 600px) {
+            &__intro {
+                width: 100%;
+                padding: 0 10px;
+                box-sizing: border-box;
+            }
+        }
     }
    
 }
@@ -102,6 +109,12 @@
             background-color: transparent;
         }
     }
+}
+@media only screen and (max-width: 600px) {
+    .search-input-with-dropdown {
+        width: 100%;
+    }
+
 }
 
 ::ng-deep .mat-mdc-menu-content {

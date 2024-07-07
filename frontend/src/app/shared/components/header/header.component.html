@@ -1,12 +1,19 @@
 <header class="header">
     <div class="header__logo">
         <img src="assets/images/munich-logo-long.jpg" alt="Munich Logo" class="header__logo__img">
-        <h3>Ratsinformationssystem</h3>
+        <h3 class="hide-mobile">Ratsinformationssystem</h3>
     </div>
-    <div class="header__navigation">
+    <div class="header__navigation hide-mobile">
         <a routerLink="/uebersicht"class="header__navigation__item" routerLinkActive="active">Übersicht</a>
         <a routerLink="/antraege"class="header__navigation__item" routerLinkActive="active">Anträge</a>
         <a routerLink="/glossar"class="header__navigation__item" routerLinkActive="active">Glossar</a>
     </div>
-    <div class="header__createProposal"><button class="header__createProposal__btn" (click)="openCreateDialog()">Neuer Antrag</button></div>
-</header>
+    <div class="header__createProposal hide-mobile"><button class="header__createProposal__btn" (click)="openCreateDialog()">Neuer Antrag</button></div>
+
+        <div class="header__navigation mobile-nav">
+            <a routerLink="/uebersicht"class="header__navigation__item" routerLinkActive="active"><i class="bi bi-house"></i></a>
+            <a routerLink="/antraege"class="header__navigation__item" routerLinkActive="active"><i class="bi bi-archive"></i></a>
+            <a routerLink="/glossar"class="header__navigation__item" routerLinkActive="active"><i class="bi bi-sort-alpha-down"></i></a>
+        </div>
+        <div class="header__createProposal mobile-nav"><button class="header__createProposal__btn" (click)="openCreateDialog()"><i class="bi bi-plus-circle"></i></button></div>
+ </header>
