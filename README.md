@@ -70,45 +70,31 @@ We offer two ways to utilize our prototype. Firstly, we have deployed our protot
 Under the following link <a href="https://main.d298mr3ct5f9js.amplifyapp.com/antraege">https://main.d298mr3ct5f9js.amplifyapp.com/antraege</a>, our frontend application, which is deployed on AWS Amplify, is accessible. This frontend is connected via API Gateway to our API deployed on AWS Lambda. Please note that, for simplification reasons during testing, we have not implemented user or access management. This means that the application and all its functionalities are accessible to any user. Additionally, the application is designed for desktop use; hence, it is not optimized for smaller devices such as smartphones.
 
 #### 2.3.2. Run Application locally
-To run the application locally, follow these steps:
-- Clone the repository from [GitHub link-to-your-repository](link-to-your-repository).
-- Install necessary dependencies and configure environment variables (refer to `.env` file or AWS Secrets Manager).
-- Start the frontend and backend servers using appropriate commands (`npm start` for frontend, `uvicorn main:app --reload` for backend).
-  **Include Mangum in app.py:**
-from mangum import Mangum
-
-handler = Mangum(app)
-**Commands:** 
-pip install -t dependencies -r requirements.txt
-(cd dependencies; zip ../aws_lambda_artifact.zip -r .)
-zip aws_lambda_artifact.zip -u app.py
-
-**AWS Lambda Settings:**
-
-AWS Runtime settings
-Handler: app.handler
-
-Function URL:
-Allow Cors, All headers, etc.
-
-
-# Run Frontend application (Angular JS with Typescript)
-**Requirements**
+**Requirements Frontend Application**
 - Node JS
 
-**Commands**
-1. npm i
-2. ng s
-
-
-# Run Api (FastAPI with Python and MongoDB)
-**Requirements**
+**Requirements Backend Application**
 - Python
 - Pip
-
-
-**Commands**
-1. python -m venv venv
-2. source venv/bin/activate
-3. pip install
-4. fastapi dev main.py
+  
+To run the application locally, follow these steps:
+- Clone the repository from https://github.com/niklas1531/tc-connecting-munich 
+- Run Frontend Application:
+  - Open a new Terminal in your cloned project
+  - Navigate into the frontend folder: cd frontend
+  - Install dependencies: npm i
+  - Start Application: ng s
+  - The frontend application should now run on the port 4200 (http://localhost:4200) 
+- Run Backend Application:
+  - Open a new Terminal in your cloned project
+  - Navigate into the api folder: cd api
+  - Create a new virtual environment: python -m venv venv
+  - Activate the environment: source venv/bin/activate
+  - Install dependencies: pip install
+  - Create .env file for secret keys and store two variables in it:
+    - MONGO_URI=link to the MongoDB
+    - ANTROPHIC_SECRET_KEY=secret key to the antrophic account    
+    - If you would like to use our existing accounts please reach out to niklas.minth@tum.de and we will make them available to you.
+  - Start Application: fastapi dev app.py
+  - The backend application should now run on the port 8000 (http://localhost:8000)
+  - The documentation with all existing routes is available on http://localhost:8000/docs) 
