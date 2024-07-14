@@ -1,23 +1,28 @@
 @if(selectedProposal$ | async; as proposal) {
 <app-frame [title]="proposal.title" navigateBack="/antraege">
- <div class="flex-container">
+  @if (loading) {
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+  }
+  <div class="flex-container">
     <div class="col1">
-        <label for="summary">Zusammenfassung</label>
-        <p>{{ proposal.summary }}</p>
-        <label for="glossaries">Schlüsselbegriffe</label>
-        <p>{{ proposal.glossaries }}</p>
-        <label for="resDepartment">Verantwortliche Abteilung</label>
-        <p>{{ proposal.responsibleDepartment }}</p>
-        <label for="electionPeriod">Wahlperiode</label>
-        <p>{{ proposal.electionPeriod }}</p>
-        <label for="createdAt">Erstellt am: </label>
-        <p>{{ proposal.createdAt | date : "dd.MM.yyyy" }}</p>
-        <label for="registeredAt">Registriert am: </label>
-        <p>{{ proposal.registeredAt | date : "dd.MM.yyyy" }}</p>
+      <label for="summary">Zusammenfassung</label>
+      <p>{{ proposal.summary }}</p>
+      <label for="glossaries">Schlüsselbegriffe</label>
+      <p>{{ proposal.glossaries }}</p>
+      <label for="resDepartment">Verantwortliche Abteilung</label>
+      <p>{{ proposal.responsibleDepartment }}</p>
+      <label for="electionPeriod">Wahlperiode</label>
+      <p>{{ proposal.electionPeriod }}</p>
+      <label for="createdAt">Erstellt am: </label>
+      <p>{{ proposal.createdAt | date : "dd.MM.yyyy" }}</p>
+      <label for="registeredAt">Registriert am: </label>
+      <p>{{ proposal.registeredAt | date : "dd.MM.yyyy" }}</p>
     </div>
-    <div >
-        <app-proposal-detail-pdf-viewer></app-proposal-detail-pdf-viewer>
+    <div>
+      <app-proposal-detail-pdf-viewer></app-proposal-detail-pdf-viewer>
     </div>
- </div>
+  </div>
 </app-frame>
 }

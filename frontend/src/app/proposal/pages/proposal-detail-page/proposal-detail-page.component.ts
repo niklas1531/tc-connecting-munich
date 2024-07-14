@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
-import { Observable, switchMap, take } from 'rxjs';
+import { finalize, Observable, switchMap, take } from 'rxjs';
 import { FrameComponent } from '../../../shared/components/frame/frame.component';
 import { SharedModule } from '../../../shared/shared.module';
 import { ProposalDetailPdfViewerComponent } from '../../components/proposal-detail-pdf-viewer/proposal-detail-pdf-viewer.component';
@@ -28,6 +28,7 @@ import { ProposalState } from '../../states/proposal-overview.state';
 export class ProposalDetailPageComponent implements OnInit, OnDestroy {
   @Select(ProposalState.selectedProposal)
   selectedProposal$!: Observable<IProposal>;
+  public loading = false;
   constructor(private route: ActivatedRoute, private store: Store) {}
   ngOnDestroy(): void {
     this.store.dispatch(new clearSelectedProposal());
@@ -37,15 +38,17 @@ export class ProposalDetailPageComponent implements OnInit, OnDestroy {
   }
 
   private loadProposal() {
-    this.route.paramMap
-      .pipe(
-        take(1),
-        switchMap((params) =>
-          this.store.dispatch(
-            new getProposalById({ proposalId: params.get('id') })
-          )
+    (this.loading = true),
+      this.route.paramMap
+        .pipe(
+          take(1),
+          switchMap((params) =>
+            this.store.dispatch(
+              new getProposalById({ proposalId: params.get('id') })
+            )
+          ),
+          finalize(() => (this.loading = false))
         )
-      )
-      .subscribe();
+        .subscribe();
   }
 }
