@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable, switchMap, take } from 'rxjs';
 import { FrameComponent } from '../../../shared/components/frame/frame.component';
+import { SharedModule } from '../../../shared/shared.module';
+import { ProposalDetailPdfViewerComponent } from '../../components/proposal-detail-pdf-viewer/proposal-detail-pdf-viewer.component';
 import { IProposal } from '../../interfaces/proposal';
 import {
   clearSelectedProposal,
@@ -16,7 +18,12 @@ import { ProposalState } from '../../states/proposal-overview.state';
   standalone: true,
   templateUrl: './proposal-detail-page.component.html',
   styleUrl: './proposal-detail-page.component.scss',
-  imports: [FrameComponent, AsyncPipe],
+  imports: [
+    FrameComponent,
+    AsyncPipe,
+    ProposalDetailPdfViewerComponent,
+    SharedModule,
+  ],
 })
 export class ProposalDetailPageComponent implements OnInit, OnDestroy {
   @Select(ProposalState.selectedProposal)

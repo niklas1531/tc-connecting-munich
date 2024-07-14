@@ -1,5 +1,6 @@
 .frame {
     padding: 50px 8% 0 8%;
+    height: calc(100vh - 300px);
 
     &__backBtn {
         display: flex;
@@ -8,5 +9,8 @@
         &:hover {
             text-decoration: underline;
         }
+    }
+    &__content {
+        height: 100%;
     }
 }

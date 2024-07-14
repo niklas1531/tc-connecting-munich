@@ -1,11 +1,19 @@
 <app-frame title="Anträge" class="proposals">
   @if(proposals$ | async; as proposals) {
-  <p>{{ proposals.length }} Ergebnisse</p>
+  <div class="flex-container">
+    <p>{{ proposals.length }} Ergebnisse</p>
+    <button (click)="autoGenerateInformation()">Datenvervollständigung</button>
+  </div>
   <div
     class="proposals__list"
     [class.proposals__list--activeFilter]="filterService.filterState"
   >
-    <app-proposal-overview-table></app-proposal-overview-table>
+    @if (loading) {
+      <div class="spinner-container">
+        <mat-spinner></mat-spinner>
+      </div>
+    } 
+      <app-proposal-overview-table></app-proposal-overview-table>
     <app-proposal-overview-filter></app-proposal-overview-filter>
   </div>
   }

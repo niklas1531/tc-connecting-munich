@@ -1,8 +1,31 @@
 .proposals {
+  .flex-container {
+    display: flex;
+    justify-content: space-between;
+    button {
+      color: #ffffff;
+      background-color: var(--lightBlue);
+      cursor: pointer;
+    }
+  }
   &__list {
     margin-top: 30px;
     &--activeFilter {
         padding-left: 300px;
     }
   }
+}
+
+.spinner-container {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.2);
 }

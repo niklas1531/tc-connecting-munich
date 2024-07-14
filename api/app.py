@@ -3,6 +3,7 @@ import json
 from http.client import HTTPException
 from typing import Annotated, List, Union
 
+from fastapi.responses import StreamingResponse
 import gridfs
 from bson import ObjectId
 from claudeService import generateSummary, searchProposalsAI
@@ -97,8 +98,9 @@ async def uploadProposal(file: Union[UploadFile, None] = None):
     contents = await file.read()
 
     reader = PdfReader(io.BytesIO(contents))
-    page = reader.pages[0]
-    text = page.extract_text()
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text()
     response_str = generateSummary(text, existingGlossaries)
     response = response_str[0].text
     
@@ -109,31 +111,31 @@ async def uploadProposal(file: Union[UploadFile, None] = None):
     contacts = data["contacts"] or []
     responsibleDepartment = data['responsibleDepartment'] or ''
     return {'title': title, 'summary':summary, 'glossaries':glossaries, 'responsibles':contacts, 'responsibleDepartment': responsibleDepartment}
-#     return {
-#     "title": "Rückabwicklung der M-net-Vertragskündigungen",
-#     "summary": "Die CSU-FW-Fraktion fordert die Stadtwerke München GmbH und deren Tochter M-net auf, auch in wirtschaftlich weniger attraktiven Gegenden für ein zukunftssicheres Angebot an Kommunikationstechnologien zu sorgen. Bereits gekündigte Verträge mit Privatkunden sollen rückgängig gemacht und weitergeführt werden. Dies folgt einem Bericht über einen Ramersdorfer, dem nach 26 Jahren der Festnetzvertrag gekündigt wurde, da sich der Betrieb des kupferbasierten Netzes nicht mehr lohne und ein Glasfaserausbau nicht geplant sei.",
-#     "glossaries": [
-#         "Daseinsvorsorge",
-#         "Telekommunikation",
-#         "Netzausbau",
-#         "Vertragsrückabwicklung"
-#     ],
-#     "responsibles": [
-#         {
-#             "firstName": "Manuel",
-#             "lastName": "Pretzl"
-#         },
-#         {
-#             "firstName": "Hans-Peter",
-#             "lastName": "Mehling"
-#         },
-#         {
-#             "firstName": "Dieter",
-#             "lastName": "Reiter"
-#         }
-#     ],
-#     "responsibleDepartment": "CSU-FW-Fraktion"
-# }
+
+
+@app.get("/getProposalFileText/{proposal_id}")
+async def get_proposal_file(proposal_id: str):
+    file = fs.find_one({'proposal_id': proposal_id})
+    if not file:
+        raise HTTPException(status_code=404, detail="File not Found")
+
+    pdf_contents = file.read();
+    pdf_reader = PdfReader(io.BytesIO(pdf_contents));
+    text = ""
+    for page in pdf_reader.pages:
+        text += page.extract_text()
+        
+    return text
+    
+@app.get("/getPdfFile/{proposal_id}")
+async def get_pdf_file(proposal_id: str):
+    file = fs.find_one({'proposal_id': proposal_id})
+    if not file:
+        raise HTTPException(status_code=404, detail="File not Found")
+
+    pdf_contents = file.read()
+    
+    return StreamingResponse(io.BytesIO(pdf_contents), media_type="application/pdf")
 
 @app.post("/createProposal")
 async def createProposal(proposal: Union[ProposalInput, None] = None) -> Proposal:
@@ -190,4 +192,53 @@ async def searchProposals(message: str = Body(...)):
     proposal_ids = [str(proposal['id']) for proposal in filtered_proposals]
     search_session = SearchSession(search=[message], response=[response], filtered_proposals=proposal_ids)
     createdSession = searchHistory_collection.insert_one(search_session.dict())
+    for proposal in filtered_proposals:
+        if 'id' in proposal:
+            proposal['_id'] = proposal.pop('id')
     return {'filtered_proposals': filtered_proposals, 'response': response, 'searchSessionId': str(createdSession.inserted_id)}
+
+
+
+@app.post("/generateInformationForAllProposals")
+async def generate_information_for_all_proposals():
+    proposals = await get_proposals();
+    for proposal in proposals:
+        if (proposal.title is None or 
+            proposal.summary is None or 
+            proposal.glossaries is None or 
+            proposal.responsibles is None or 
+            proposal.responsibleDepartment is None):
+            proposalText = await get_proposal_file(proposal.id)
+            generatedInformation = await generate_missing_information(proposalText)
+            if proposal.title is None:
+                proposal.title = generatedInformation['title']
+            if proposal.summary is None:
+                proposal.summary = generatedInformation['summary']
+            if proposal.glossaries is None:
+                proposal.glossaries = generatedInformation['glossaries']
+            proposal_dict = proposal.dict(by_alias=True)
+            proposal_dict.pop("_id", None)
+            update_result = proposals_collection.update_one(
+                {"_id": ObjectId(proposal.id)},
+                {"$set": proposal_dict}
+            )
+            if update_result.modified_count == 0:
+                raise HTTPException(status_code=404, detail=f"Proposal with id {proposal.id} not found or not updated.")
+            
+    return proposals
+
+
+@app.post("/genereateMissingInformation")
+async def generate_missing_information(text: str):
+    
+    existingGlossaries: List[Glossary] = await get_glossaries()
+    generatedInformation = generateSummary(text, existingGlossaries)
+    response = generatedInformation[0].text
+    
+    data = json.loads(response)
+    title = data["title"] or ''
+    summary = data["summary"] or ''
+    glossaries = data["glossaries"] or []
+    contacts = data["contacts"] or []
+    responsibleDepartment = data['responsibleDepartment'] or ''
+    return {'title': title, 'summary':summary, 'glossaries':glossaries, 'responsibles':contacts, 'responsibleDepartment': responsibleDepartment}

@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { GlossaryState } from './glossary/states/glossary-overview.state';
+import { ProposalDetailPdfViewerComponent } from './proposal/components/proposal-detail-pdf-viewer/proposal-detail-pdf-viewer.component';
 import { ProposalState } from './proposal/states/proposal-overview.state';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { HeaderComponent } from './shared/components/header/header.component';
@@ -33,6 +34,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
     MatProgressSpinnerModule,
     HeaderComponent,
     FooterComponent,
+    ProposalDetailPdfViewerComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

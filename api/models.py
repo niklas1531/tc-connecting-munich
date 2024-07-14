@@ -58,11 +58,11 @@ class GlossaryInput(BaseModel):
 
 class Proposal(BaseModel):
     id: str = Field(..., alias='_id')
-    title: str
-    summary: str
-    glossaries: List[str]
-    responsibles: List[Person]
-    responsibleDepartment: str
+    title: Optional[str] = None
+    summary: Optional[str] = None
+    glossaries: Optional[List[str]] = None
+    responsibles: Optional[List[Person]] = None
+    responsibleDepartment: Optional[str] = None
     createdAt: str
     registeredAt: str
     deadline: str

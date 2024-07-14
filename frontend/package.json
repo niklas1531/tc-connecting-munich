@@ -24,6 +24,7 @@
     "@ngxs/store": "^18.0.0",
     "bootstrap-icons": "^1.11.3",
     "css-vars-ponyfill": "^2.4.9",
+    "ng2-pdf-viewer": "^10.2.2",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

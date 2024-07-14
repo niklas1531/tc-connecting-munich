@@ -57,4 +57,16 @@ export class ProposalService {
       file
     );
   }
+
+  public generateInformationForAllProposals(): Observable<IProposal[]> {
+    return this.http.post<IProposal[]>(
+      environment.apiUrl + '/generateInformationForAllProposals',
+      undefined
+    );
+  }
+  public getProposalFile(proposalId: string): Observable<Blob> {
+    return this.http.get(environment.apiUrl + `/getPdfFile/${proposalId}`, {
+      responseType: 'blob',
+    });
+  }
 }
