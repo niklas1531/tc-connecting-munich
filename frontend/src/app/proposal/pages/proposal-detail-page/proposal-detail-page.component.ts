@@ -38,17 +38,17 @@ export class ProposalDetailPageComponent implements OnInit, OnDestroy {
   }
 
   private loadProposal() {
-    (this.loading = true),
-      this.route.paramMap
-        .pipe(
-          take(1),
-          switchMap((params) =>
-            this.store.dispatch(
-              new getProposalById({ proposalId: params.get('id') })
-            )
-          ),
-          finalize(() => (this.loading = false))
-        )
-        .subscribe();
+    this.loading = true;
+    this.route.paramMap
+      .pipe(
+        take(1),
+        switchMap((params) =>
+          this.store.dispatch(
+            new getProposalById({ proposalId: params.get('id') })
+          )
+        ),
+        finalize(() => (this.loading = false))
+      )
+      .subscribe();
   }
 }
