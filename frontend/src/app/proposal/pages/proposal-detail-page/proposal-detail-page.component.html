@@ -2,13 +2,13 @@
 <app-frame [title]="proposal.title" navigateBack="/antraege">
   <div class="flex-container">
     <div class="col1">
-      <label for="summary">Zusammenfassung</label>
+      <label for="summary">Zusammenfassung:</label>
       <p>{{ proposal.summary }}</p>
-      <label for="glossaries">Schlüsselbegriffe</label>
+      <label for="glossaries">Schlüsselbegriffe:</label>
       <p>{{ proposal.glossaries }}</p>
-      <label for="resDepartment">Verantwortliche Abteilung</label>
+      <label for="resDepartment">Verantwortliche Abteilung:</label>
       <p>{{ proposal.responsibleDepartment }}</p>
-      <label for="electionPeriod">Wahlperiode</label>
+      <label for="electionPeriod">Wahlperiode:</label>
       <p>{{ proposal.electionPeriod }}</p>
       <label for="createdAt">Erstellt am: </label>
       <p>{{ proposal.createdAt | date : "dd.MM.yyyy" }}</p>
