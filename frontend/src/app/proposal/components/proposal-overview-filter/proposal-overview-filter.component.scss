@@ -45,18 +45,26 @@
             flex-direction: column;
             position: relative;
             height: 100%;
+            box-sizing: border-box;
+            overflow-y: hidden;
+        }
+        &__chat::-webkit-scrollbar {
+            display: none;
         }
         &__chat {
             position: relative;
             display: flex;
             flex-direction: column;
             padding: 10px 20px;
+            overflow-y: scroll;
+            height: calc(100% - 90px);
             &__item {
                 border-radius: 10px;
                 padding: 10px;
                 color: #ffffff;
                 max-width: 70%;
                 margin: 5px 0;
+                height: fit-content;
                 &--user {
                     background-color: var(--lightBlue);
                     align-self: flex-end;
@@ -85,6 +93,7 @@
             width: 90%;
             margin: 5%;
             min-height: 50px;
+            max-height: 50px;
             box-sizing: border-box;
             textarea {
                 padding: 20px;
